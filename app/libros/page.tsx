@@ -24,7 +24,7 @@ export default function LibrosPage() {
     fetchBooks()
   } , [])
   
-  const handleDelete = async (bookId) => {
+  const handleDelete = async (bookId:any) => {
     // Confirmar antes de eliminar
     if (!confirm('¿Estás seguro de que quieres eliminar este libro?')) {
       return
