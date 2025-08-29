@@ -1,0 +1,616 @@
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
+import { ArrowLeft, Save } from "lucide-react";
+
+export default function CrearLibroPage() {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const subcategoria: { [key: string]: string[] } = {
+    Arquitectura: [
+      "Arquitectura Clásica",
+      "Diseño de interios y Decoración",
+      "Guías de museos, palacios y monumentos",
+    ],
+    Escultura: [
+      "Catálogos",
+      "Escultores"
+    ],
+    Pintura: [
+      "Artistas",
+      "Colecciones",
+      "Dibujos",
+      "Museos de Pinturas"
+    ],
+    Música: [
+      "Cancioneros y letras",
+      "Estilos musicales",
+      "Instrumentos musicales",
+      "Libros con música en CD",
+      "Manuales",
+      "Métodos",
+      "Óperas",
+      "Partituras"
+     ],
+    Cine: [
+      "Grandes películaas",
+      "Historia del cine"
+     ],
+    Fotografía: [
+      "Álbumes",
+      "Fotografía artística",
+      "Técnicas fotográficas"
+     ],
+    Tauromaquia: [
+      "Toreros famosos",
+      "Tratados del toreo"
+     ],
+    Cocina: [
+      "Bebidas con y sin alcohol",
+      "Cócteles",
+      "Cocina española y recetas",
+      "Carnes y nutrición",
+      "Ensaladas",
+      "Especialidades internacionales y recetas",
+      "Grandes cocineros",
+      "Grandes restaurantes",
+      "Sopas",
+      "Postres y repostería",
+    ],
+    Jardinería: [
+      "Árboles",
+      "Guías específicas",
+      "Jardines",
+      "Paisajismo",
+      "Plantas de interior",
+      "Plantas de exterior"
+    ],
+    Juegos: [],
+    Manualidades: [
+      "Trabajos con papel y madera",
+    ],
+    "Moda y Estilo de vida": [
+      "Ropa y vestidos en la historia"
+    ],
+    "Mascotas y animales de compañía": [
+      "Descripción de razas de perros y gatos",
+    ],
+    Varios: [],
+    "Lengua Española": [
+      "Diccionarios",
+      "Ejercicios",
+      "Fonética y pronunciación",
+      "Gramática",
+      "Vocabulario y Expresiones Especiales"
+    ],
+    Literatura: [
+      "Antologías",
+      "Biografías y memorias",
+      "Ciencia ficción",
+      "Cómics",
+      "Cuentos",
+      "Divulgación",
+      "Ensayos",
+      "Epopeyas y romances clásicos",
+      "Fábulas y relatos",
+      "Historia de la literatura",
+      "Libros de autoayuda",
+      "Libros de canciones",
+      "Libros de viajes",
+      "Literatura clásica",
+      "Literatura en otras lenguas",
+      "Literatura internacional",
+      "Literatura oriental",
+      "Novela histórica",
+      "Novela negra y policíaca",
+      "Novela de suspense y terror",
+      "Novela romántica",
+      "Obras de poesía clásica",
+      "Obras de poesía contemporánea",
+      "Obras de teatro clásicas",
+      "Obras de teatro contemporáneas",
+      "Poesía"
+    ],
+    Idiomas: [
+      "Aprendizaje de idiomas",
+      "Cursos",
+      "Diccionarios",
+      "Ejercicios",
+      "Gramática",
+      "Guías de conversación",
+      "Lecturas",
+      "Métodos",
+      "Vocabulario y expresiones especiales"
+    ],
+    "Libros de texto": [
+      "Enseñanza infantil",
+      "Enseñanza primaria",
+      "Enseñanza secundaria",
+      "Bachillerato",
+      "Universidad",
+      "Cuadernos de ejercicios y de vacaciones",
+      "Preparación de reválidas y selectividad"
+    ],
+    "Didáctica y pedagogía": [
+      "Métodos y normas"
+    ],
+    Filosofía: [
+      "Grandes filósofos"
+    ],
+    "Lógica y metafísica": [
+      "Tratados y desarrollos"
+    ],
+    "Ética y moral": [
+      "Tratados y ensayos"
+    ],
+    "Religiones y Espiritualidad": [
+      "Biblias y evangelios",
+      "Fe y creencias",
+      "Grandes religiones",
+      "Historia de las religiones",
+      "Mitología"
+    ],
+    Política: [
+      "Biografías",
+      "Obras de políticos",
+      "Pensamientos y memorias", 
+      "Geopolítica"
+    ],
+    Derecho: [
+      "Español",
+      "Internacional"
+    ],
+    Psicología: [
+      "Alteraciones y psicopatías",
+      "Estudios Especificos"
+    ],
+    Sociología: [
+      "Estudios y ensayos"
+    ],
+    Antropología: [
+      "Etapas de la evolución",
+    ],
+    Parapsicología: [
+      "Fenómenos inexplicables",
+      "Lugarés extraños",
+      "Misterio y ocultismo"
+    ],
+    Geografía: [
+      "Atlas y mapas",
+      "Demografía",
+      "Geografía de España",
+      "Geografía mundial de países",
+      "Guías de países, regiones y ciudades",
+      "Libros de viaje en tren, en barco, en avión y excursiones",
+      "Parques naturales y reservas",
+      "Viajes y exploración"
+    ],
+    Historia: [
+      "Arqueología",
+      "Civilizaciones antiguas e Imperios",
+      "Continentes, países y lugares históricos",
+      "Historia del arte",
+      "Historia de España",
+      "Historia Universal"
+    ],
+    "Cultura general": [
+      "Datos e información diversas",
+    ],
+    Astronomía: [],
+    Biología: [],
+    "Economía y empresa": [],
+    Física: [],
+    Geología: [],
+    Informática: [],
+    Ingeniería: [],
+    Matemáticas: [],
+    Medicina: [],
+    Náutica: [],
+    Química: [],
+    Tecnología: [],
+  };
+
+  const [formData, setFormData] = useState({
+    id: "",
+    titulo: "",
+    autor: "",
+    categoria: "",
+    subcategoria: "",
+    enciclopedia: "",
+    colecciones: "",
+    editorial: "",
+    idioma: "",
+    numPag: "",
+    yearPub: "",
+    isbn: "",
+    depositoLegal: "",
+    fotoPortada: "",
+    fotoContraportada: "",
+  });
+
+  console.log(formData);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aquí conectarías con tu API
+    setLoading(true);
+    setError(null);
+
+    //Validacion de los campos obligatorios
+    if (
+      !formData.titulo ||
+      !formData.autor ||
+      !formData.categoria ||
+      !formData.editorial ||
+      !formData.idioma ||
+      !formData.numPag ||
+      !formData.yearPub ||
+      !formData.isbn ||
+      !formData.depositoLegal
+    ) {
+      setError("Todos los campos marcados con * son obligatorios");
+      setLoading(false);
+      return;
+    }
+
+    console.log("Creando libro:", formData);
+    try {
+      const res = await fetch("http://localhost:8000/libros/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al crear el libro");
+      }
+
+      router.push("/libros");
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files && files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: reader.result as string,
+        }));
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const handleCategoriaChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.target.value;
+    setFormData(prev => ({
+      ...prev,
+      categoria: selected,
+      subcategoria: "" // Reiniciar subcategoría al cambiar categoría
+    }))
+  }
+
+  return (
+    <div>
+      <Link
+        href="/libros"
+        className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6"
+      >
+        <ArrowLeft size={20} />
+        Volver a Libros
+      </Link>
+
+      <div className="bg-white rounded-lg shadow-md p-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+          Agregar Nuevo Libro
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Título *
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.titulo}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="author"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Autor *
+              </label>
+              <input
+                type="text"
+                id="author"
+                name="author"
+                value={formData.autor}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="categoria"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Categoría *
+            </label>
+            <select
+              id="categoria"
+              name="categoria"
+              value={formData.categoria}
+              onChange={handleCategoriaChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 max-h-3' overflow-y-auto"
+              required
+            >
+              <option value="">Seleccione una categoría</option>
+
+              <optgroup label="Arte">
+                <option value="Arquitectura">Arquitectura</option>
+                <option value="Escultura">Escultura</option>
+                <option value="Pintura">Pintura</option>
+                <option value="Música">Música</option>
+                <option value="Cine">Cine</option>
+                <option value="Fotografía">Fotografía</option>
+                <option value="Tauromaquia">Tauromaquia</option>
+              </optgroup>
+
+              <optgroup label="Varios">
+                <option value="Cocina">Cocina</option>
+              </optgroup>
+
+              <optgroup label="Cultura General">
+                <option value="Jardinería">Jardinería</option>
+                <option value="Juegos">Juegos</option>
+                <option value="Manualidades">Manualidades</option>
+                <option value="Moda y Estilo de vida">
+                  Moda y Estilo de vida
+                </option>
+                <option value="Mascotas y animales de compañía">
+                  Mascotas y animales de compañía
+                </option>
+                <option value="Varios">Varios</option>
+              </optgroup>
+
+              <optgroup label="Letras">
+                <option value="Lengua Española">Lengua Española</option>
+                <option value="Literatura">Literatura</option>
+                <option value="Idiomas">Idiomas</option>
+                <option value="Libros de texto">Libros de texto</option>
+                <option value="Didáctica y pedagogía">
+                  Didáctica y pedagogía
+                </option>
+                <option value="Filosofía">Filosofía</option>
+                <option value="Lógica y metafísica">Lógica y metafísica</option>
+                <option value="Ética y moral">Ética y moral</option>
+                <option value="Religiones y Espiritualidad">
+                  Religiones y Espiritualidad
+                </option>
+                <option value="Política">Política</option>
+                <option value="Derecho">Derecho</option>
+                <option value="Psicología">Psicología</option>
+                <option value="Sociología">Sociología</option>
+                <option value="Antropología">Antropología</option>
+                <option value="Parapsicología">Parapsicología</option>
+                <option value="Geografía">Geografía</option>
+                <option value="Historia">Historia</option>
+                <option value="Cultura general">Cultura general</option>
+              </optgroup>
+
+              <optgroup label="Ciencias">
+                <option value="Astronomía">Astronomía</option>
+                <option value="Biología">Biología</option>
+                <option value="Economía y empresa">Economía y empresa</option>
+                <option value="Física">Física</option>
+                <option value="Geología">Geología</option>
+                <option value="Informática">Informática</option>
+                <option value="Ingeniería">Ingeniería</option>
+                <option value="Matemáticas">Matemáticas</option>
+                <option value="Medicina">Medicina</option>
+                <option value="Náutica">Náutica</option>
+                <option value="Química">Química</option>
+                <option value="Tecnología">Tecnología</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div>
+            <select
+              id="subcategoria"
+              name="subcategoria"
+              value={formData.subcategoria}
+              onChange={handleChange} // handleChange genérico
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 max-h-60 overflow-y-auto"
+              disabled={!subcategoria[formData.categoria]?.length} // deshabilitado si no hay subcategorías
+            >
+              <option value="">
+                {subcategoria[formData.categoria]?.length
+                  ? "Seleccione una subcategoría"
+                  : "No hay subcategorías"}
+              </option>
+              {subcategoria[formData.categoria]?.map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* <div>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+              Descripción
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={4}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div> */}
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <label
+                htmlFor="publishedYear"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Año de Publicación *
+              </label>
+              <input
+                type="number"
+                id="publishedYear"
+                name="publishedYear"
+                value={formData.yearPub}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* <div>
+              <label htmlFor="genre" className="block text-sm font-medium text-gray-700 mb-1">
+                Género
+              </label>
+              <input
+                type="text"
+                id="genre"
+                name="genre"
+                value={formData.genre}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div> */}
+
+            <div>
+              <label
+                htmlFor="isbn"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                ISBN *
+              </label>
+              <input
+                type="text"
+                id="isbn"
+                name="isbn"
+                value={formData.isbn}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="Portada"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Imagen de Portada
+              </label>
+              <input
+                type="file"
+                id="portada"
+                name="portada"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                        file:rounded-md file:border-0 file:text-sm file:font-semibold 
+                        file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+              {formData.fotoPortada && (
+                <img
+                  src={formData.fotoPortada}
+                  alt="Previsualizacion Portada"
+                  className="mt-2 h-32 rounded-md border"
+                />
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="Contraportada"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Imagen de Contraportada
+              </label>
+              <input
+                type="file"
+                id="contraportada"
+                name="contraportada"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                        file:rounded-md file:border-0 file:text-sm file:font-semibold 
+                        file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+              {formData.fotoContraportada && (
+                <img
+                  src={formData.fotoContraportada}
+                  alt="Previsualizacion Contraportada"
+                  className="mt-2 h-32 rounded-md border"
+                />
+              )}
+            </div>
+
+            {error && <p className="text-red-600">{error}</p>}
+          </div>
+
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 flex items-center gap-2"
+            >
+              <Save size={20} />
+              Guardar Libro
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
