@@ -24,7 +24,29 @@ export default function LibrosPage() {
     fetchBooks()
   } , [])
   
+  const handleDelete = async (bookId) => {
+    // Confirmar antes de eliminar
+    if (!confirm('¿Estás seguro de que quieres eliminar este libro?')) {
+      return
+    }
 
+    try {
+      const res = await fetch(`http://localhost:8000/libros/${bookId}`, {
+        method: 'DELETE',
+      })
+
+      if (res.ok) {
+        // Actualizar el estado local removiendo el libro eliminado
+        setBooks(books.filter(book => book.id !== bookId))
+        console.log('Libro eliminado exitosamente')
+      } else {
+        throw new Error('Error al eliminar el libro')
+      }
+    } catch (error) {
+      console.error('Error al eliminar el libro:', error)
+      alert('Error al eliminar el libro. Por favor, intenta de nuevo.')
+    }
+  }
 
   return (
     <div>
@@ -65,7 +87,10 @@ export default function LibrosPage() {
                   >
                     Editar
                   </Link>
-                  <button className="text-red-600 hover:text-red-700">
+                  <button 
+                    onClick={() => handleDelete(book["id"])}
+                    className="text-red-600 hover:text-red-700"
+                  >
                     Eliminar
                   </button>
                 </div>
