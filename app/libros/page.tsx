@@ -1,15 +1,15 @@
 'use client'
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
-import { mockBooks } from '@/fakeData/mockData'
-import { Plus, Info } from 'lucide-react'
+import { Plus, Info, ChevronLeft, ChevronRight } from 'lucide-react'
 
 
 export default function LibrosPage() {
   const { isAuthenticated } = useAuth()
-  // const [books] = useState(mockBooks)
   const [books, setBooks] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const booksPerPage = 10
 
   useEffect(() => {
     const fetchBooks = async() => {
@@ -23,8 +23,28 @@ export default function LibrosPage() {
     }
     fetchBooks()
   } , [])
+
+  // Calcular libros para la página actual
+  const indexOfLastBook = currentPage * booksPerPage
+  const indexOfFirstBook = indexOfLastBook - booksPerPage
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook)
+
+  // Calcular número total de páginas
+  const totalPages = Math.ceil(books.length / booksPerPage)
+
+  // Cambiar página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  // Navegación anterior/siguiente
+  const goToPreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1))
+  }
+
+  const goToNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages))
+  }
   
-  const handleDelete = async (bookId:any) => {
+  const handleDelete = async (bookId) => {
     // Confirmar antes de eliminar
     if (!confirm('¿Estás seguro de que quieres eliminar este libro?')) {
       return
@@ -63,17 +83,39 @@ export default function LibrosPage() {
         )}
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {books.map((book) => (
-          console.log(book),
-          <div key={book["id"]} className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-2">{book["titulo"]}</h3>
-            <p className="text-gray-600 mb-4">por {book["autor"]}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {currentBooks.map((book) => (
+          <div key={book["id"]} className="bg-white rounded-lg shadow-md p-4 flex flex-col h-full">
             
-            <div className="flex justify-between items-center">
+            {/* Imagen de portada */}
+            <div className="relative h-64 bg-gradient-to-b from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden mb-4 rounded-lg">
+              {book["fotoPortada"] ? (
+                <img
+                  src={book["fotoPortada"]}
+                  alt={`Portada de ${book["titulo"]}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="text-gray-400 text-center p-4">
+                  <div className="w-16 h-20 mx-auto mb-2 border-2 border-gray-300 rounded flex items-center justify-center">
+                    <span className="text-2xl">📖</span>
+                  </div>
+                  <p className="text-sm">Sin portada</p>
+                </div>
+              )}
+            </div>
+            
+            {/* Contenido que puede variar en altura */}
+            <div className="flex-grow">
+              <h3 className="text-lg font-bold mb-1 text-gray-800 line-clamp-2">{book["titulo"]}</h3>
+              <p className="text-sm text-gray-600 mb-4">por <span className="font-medium">{book["autor"]}</span></p>
+            </div>
+            
+            {/* Botones siempre en la parte inferior */}
+            <div className="space-y-2 mt-auto">
               <Link
                 href={`/libros/${book["id"]}`}
-                className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md hover:bg-blue-200 flex items-center gap-2"
+                className="w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
               >
                 <Info size={16} />
                 Más información
@@ -83,13 +125,13 @@ export default function LibrosPage() {
                 <div className="flex gap-2">
                   <Link
                     href={`/libros/editar/${book["id"]}`}
-                    className="text-yellow-600 hover:text-yellow-700"
+                    className="flex-1 bg-amber-500 text-white px-3 py-2 rounded-md hover:bg-amber-600 text-center text-sm font-medium transition-colors"
                   >
                     Editar
                   </Link>
                   <button 
                     onClick={() => handleDelete(book["id"])}
-                    className="text-red-600 hover:text-red-700"
+                    className="flex-1 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 text-sm font-medium transition-colors cursor-pointer"
                   >
                     Eliminar
                   </button>
@@ -99,6 +141,64 @@ export default function LibrosPage() {
           </div>
         ))}
       </div>
+
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center mt-8 gap-2">
+          {/* Botón Anterior */}
+          <button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              currentPage === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+            }`}
+          >
+            <ChevronLeft size={16} />
+            Anterior
+          </button>
+
+          {/* Números de página */}
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNumber = index + 1
+            return (
+              <button
+                key={pageNumber}
+                onClick={() => paginate(pageNumber)}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  currentPage === pageNumber
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                {pageNumber}
+              </button>
+            )
+          })}
+
+          {/* Botón Siguiente */}
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              currentPage === totalPages
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+            }`}
+          >
+            Siguiente
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
+
+      {/* Información de paginación */}
+      {books.length > 0 && (
+        <div className="text-center mt-4 text-sm text-gray-600">
+          Mostrando {indexOfFirstBook + 1}-{Math.min(indexOfLastBook, books.length)} de {books.length} libros
+        </div>
+      )}
     </div>
   )
 }
