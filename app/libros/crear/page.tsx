@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, X } from "lucide-react";
 
 export default function CrearLibroPage() {
   const { isAuthenticated } = useAuth();
@@ -287,6 +287,33 @@ export default function CrearLibroPage() {
     return null;
   }
 
+  // Función para validar números
+  const validateNumericFields = () => {
+    const errors: string[] = [];
+
+    // Validar número de páginas
+    const numPag = parseInt(formData.numPag);
+    if (isNaN(numPag) || numPag <= 0 || !Number.isInteger(numPag)) {
+      errors.push("El número de páginas debe ser un número entero positivo");
+    }
+
+    // Validar año de publicación
+    const yearPub = parseInt(formData.yearPub);
+    const currentYear = new Date().getFullYear();
+    if (
+      isNaN(yearPub) ||
+      yearPub < 1000 ||
+      yearPub > currentYear ||
+      !Number.isInteger(yearPub)
+    ) {
+      errors.push(
+        `El año de publicación debe ser un número entero entre 1000 y ${currentYear}`
+      );
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -309,6 +336,14 @@ export default function CrearLibroPage() {
       return;
     }
 
+    // Validación específica de campos numéricos
+    const numericErrors = validateNumericFields();
+    if (numericErrors.length > 0) {
+      setError(numericErrors.join(". "));
+      setLoading(false);
+      return;
+    }
+
     console.log("Creando libro:", formData);
     try {
       const res = await fetch("http://localhost:8000/libros/", {
@@ -316,7 +351,11 @@ export default function CrearLibroPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          numPag: parseInt(formData.numPag),
+          yearPub: parseInt(formData.yearPub),
+        }),
       });
 
       if (!res.ok) {
@@ -338,10 +377,22 @@ export default function CrearLibroPage() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+
+    // Para campos numéricos, permitir solo números
+    if (name === "numPag" || name === "yearPub") {
+      // Permitir solo números y eliminar caracteres no numéricos
+      const numericValue = value.replace(/[^0-9]/g, "");
+      setFormData((prev) => ({
+        ...prev,
+        [name]: numericValue,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -356,6 +407,13 @@ export default function CrearLibroPage() {
       };
       reader.readAsDataURL(files[0]);
     }
+  };
+
+  const removeImage = (imageType: "fotoPortada" | "fotoContraportada") => {
+    setFormData((prev) => ({
+      ...prev,
+      [imageType]: "",
+    }));
   };
 
   const handleCategoriaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -389,7 +447,6 @@ export default function CrearLibroPage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           {/* Título y Autor */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -704,7 +761,7 @@ export default function CrearLibroPage() {
             </div>
           </div>
 
-          {/* Imágenes */}
+          {/* Imágenes con vista previa */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label
@@ -723,6 +780,24 @@ export default function CrearLibroPage() {
                         file:rounded-md file:border-0 file:text-sm file:font-semibold 
                         file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
+              {formData.fotoPortada && (
+                <div className="mt-3 relative inline-block">
+                  <div className="w-24 h-32 border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+                    <img
+                      src={formData.fotoPortada}
+                      alt="Vista previa portada"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeImage("fotoPortada")}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              )}
             </div>
 
             <div>
@@ -742,6 +817,24 @@ export default function CrearLibroPage() {
                         file:rounded-md file:border-0 file:text-sm file:font-semibold 
                         file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
+              {formData.fotoContraportada && (
+                <div className="mt-3 relative inline-block">
+                  <div className="w-24 h-32 border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+                    <img
+                      src={formData.fotoContraportada}
+                      alt="Vista previa contraportada"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeImage("fotoContraportada")}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
