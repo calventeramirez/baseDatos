@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
 import { Plus, Info, ChevronLeft, ChevronRight } from 'lucide-react'
-
+import SearchBox from '@/components/SearchBox'
+import { Libro } from '@/app/type/libro'
 
 export default function LibrosPage() {
   const { isAuthenticated } = useAuth()
   const [books, setBooks] = useState([])
+  const [filteredBooks, setFilteredBooks] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState('')
   const booksPerPage = 10
 
   useEffect(() => {
@@ -17,23 +20,41 @@ export default function LibrosPage() {
         const res = await fetch('http://localhost:8000/libros/')
         const data = await res.json()
         setBooks(data)
+        setFilteredBooks(data)
       }catch(error){
         console.error('Error al cargar los libros:', error)
       }
     }
     fetchBooks()
-  } , [])
+  }, [])
+
+  // Aplicar filtros cuando cambien los criterios de búsqueda
+  useEffect(() => {
+    let filtered = books
+
+    // Filtro por búsqueda
+    if (searchTerm.trim()) {
+      filtered = filtered.filter((book: Libro) => 
+        book.titulo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.autor?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+
+
+    setFilteredBooks(filtered)
+    setCurrentPage(1) // Resetear a la primera página cuando se aplican filtros
+  }, [books, searchTerm])
 
   // Calcular libros para la página actual
   const indexOfLastBook = currentPage * booksPerPage
   const indexOfFirstBook = indexOfLastBook - booksPerPage
-  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook)
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook)
 
   // Calcular número total de páginas
-  const totalPages = Math.ceil(books.length / booksPerPage)
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage)
 
   // Cambiar página
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber:any) => setCurrentPage(pageNumber)
 
   // Navegación anterior/siguiente
   const goToPreviousPage = () => {
@@ -44,7 +65,7 @@ export default function LibrosPage() {
     setCurrentPage(prev => Math.min(prev + 1, totalPages))
   }
   
-  const handleDelete = async (bookId) => {
+  const handleDelete = async (bookId:any) => {
     // Confirmar antes de eliminar
     if (!confirm('¿Estás seguro de que quieres eliminar este libro?')) {
       return
@@ -57,7 +78,7 @@ export default function LibrosPage() {
 
       if (res.ok) {
         // Actualizar el estado local removiendo el libro eliminado
-        setBooks(books.filter(book => book.id !== bookId))
+        setBooks(books.filter((book: Libro) => book.id !== bookId))
         console.log('Libro eliminado exitosamente')
       } else {
         throw new Error('Error al eliminar el libro')
@@ -66,6 +87,10 @@ export default function LibrosPage() {
       console.error('Error al eliminar el libro:', error)
       alert('Error al eliminar el libro. Por favor, intenta de nuevo.')
     }
+  }
+
+  const handleSearch = (term:any) => {
+    setSearchTerm(term)
   }
 
   return (
@@ -81,6 +106,14 @@ export default function LibrosPage() {
             Agregar Libro
           </Link>
         )}
+      </div>
+
+      {/* Barra de búsqueda */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <SearchBox 
+          onSearch={handleSearch}
+          placeholder="Buscar por título o autor..."
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -142,6 +175,21 @@ export default function LibrosPage() {
         ))}
       </div>
 
+      {/* Mensaje cuando no hay libros */}
+      {currentBooks.length === 0 && filteredBooks.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-gray-400 text-6xl mb-4">📚</div>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            {searchTerm? 'No se encontraron libros' : 'No hay libros disponibles'}
+          </h3>
+          <p className="text-gray-500">
+            {searchTerm? 'Intenta con otros términos de búsqueda o filtros'
+              : 'Comienza agregando algunos libros a tu biblioteca'
+            }
+          </p>
+        </div>
+      )}
+
       {/* Paginación */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center mt-8 gap-2">
@@ -194,9 +242,10 @@ export default function LibrosPage() {
       )}
 
       {/* Información de paginación */}
-      {books.length > 0 && (
+      {filteredBooks.length > 0 && (
         <div className="text-center mt-4 text-sm text-gray-600">
-          Mostrando {indexOfFirstBook + 1}-{Math.min(indexOfLastBook, books.length)} de {books.length} libros
+          Mostrando {indexOfFirstBook + 1}-{Math.min(indexOfLastBook, filteredBooks.length)} de {filteredBooks.length} libros
+          {filteredBooks.length !== books.length && ` (${books.length} total)`}
         </div>
       )}
     </div>
