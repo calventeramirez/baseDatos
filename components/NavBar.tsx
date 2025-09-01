@@ -30,7 +30,7 @@ export default function Navbar() {
               <div className="flex items-center space-x-4">
                 <span className="flex items-center gap-2">
                   <User size={20} />
-                  {user?.name}
+                  {user?.username}
                 </span>
                 <button
                   onClick={logout}
