@@ -30,6 +30,10 @@ export default function CrearLibroPage() {
     Cine: ["Grandes películaas", "Historia del cine"],
     Fotografía: ["Álbumes", "Fotografía artística", "Técnicas fotográficas"],
     Tauromaquia: ["Toreros famosos", "Tratados del toreo"],
+    Enología: [
+      "Guías de vinos españoles e internacionales",
+      "Regiones y países productores",
+    ],
     Cocina: [
       "Bebidas con y sin alcohol",
       "Cócteles",
@@ -42,6 +46,10 @@ export default function CrearLibroPage() {
       "Sopas",
       "Postres y repostería",
     ],
+    "Adagios y Pensamientos": [],
+    Refranes: [],
+    "Datos e información": [],
+    Acuariofilia: [],
     Jardinería: [
       "Árboles",
       "Guías específicas",
@@ -50,12 +58,16 @@ export default function CrearLibroPage() {
       "Plantas de interior",
       "Plantas de exterior",
     ],
+    Deportes: ["Diversos deportes", "Manuales", "Motos y coches"],
+    "Guiness Books of Records": [],
     Juegos: [],
     Manualidades: ["Trabajos con papel y madera"],
     "Moda y Estilo de vida": ["Ropa y vestidos en la historia"],
     "Mascotas y animales de compañía": [
       "Descripción de razas de perros y gatos",
     ],
+    "Preguntas y Respuestas": [],
+    "Tradiciones y Fiestas": [],
     Varios: [],
     "Lengua Española": [
       "Diccionarios",
@@ -130,7 +142,12 @@ export default function CrearLibroPage() {
       "Geopolítica",
     ],
     Derecho: ["Español", "Internacional"],
-    Psicología: ["Alteraciones y psicopatías", "Estudios Especificos"],
+    Psicología: [
+      "Alteraciones y psicopatías",
+      "Estudios Especificos",
+      "Sexualidad",
+      "Tratados médicos y de divulgación",
+    ],
     Sociología: ["Estudios y ensayos"],
     Antropología: ["Etapas de la evolución"],
     Parapsicología: [
@@ -211,6 +228,7 @@ export default function CrearLibroPage() {
       "Cálculo diferencial e integral",
       "Estadística",
       "Geometría",
+      "Probabilidad y combinatoria",
       "Problemas",
       "Tablas y manuales",
       "Trigonometría",
@@ -232,10 +250,12 @@ export default function CrearLibroPage() {
       "Anuarios de mareas",
       "Astronomía náutica",
       "Atlas de náutica",
+      "Barcos y veleros",
       "Construcción naval",
       "Cusos de naútica",
-      "Derroteros",
+      "Derroteros y portulanos",
       "Diccionarios náuticos",
+      "Ejercicios de náutica",
       "Exámenes",
       "Guías",
       "Lecturas náutica",
@@ -243,6 +263,7 @@ export default function CrearLibroPage() {
       "Navegación",
       "Preparación a titulaciones",
       "Problemas de exámenes",
+      "Relatos y Novelas sobre viajes en barco",
       "Tablas",
       "Teoría del buque",
       "Tratados",
@@ -259,6 +280,16 @@ export default function CrearLibroPage() {
       "Química orgánica",
     ],
     Tecnología: ["Aplicaciones y Evolución"],
+    "Adivinanzas y Acertijos": [],
+    Curiosidades: [],
+    "Frases Célebres": [],
+    Humor: [],
+    Manuales: [
+      "Manuales de autoayuda",
+      "Manuales de excursiones",
+      "Manuales de Gimnasia y fitness",
+      "Manuales de supervivencia",
+    ],
   };
 
   const [formData, setFormData] = useState({
@@ -515,12 +546,20 @@ export default function CrearLibroPage() {
                   <option value="Tauromaquia">Tauromaquia</option>
                 </optgroup>
 
-                <optgroup label="Varios">
-                  <option value="Cocina">Cocina</option>
-                </optgroup>
-
                 <optgroup label="Cultura General">
+                  <option value="Adagios y Pensamientos">
+                    Adagios y Pensamientos
+                  </option>
+                  <option value="Refranes">Refranes</option>
+                  <option value="Datos e información">
+                    Datos e información
+                  </option>
+                  <option value="">Acuariofilia</option>
                   <option value="Jardinería">Jardinería</option>
+                  <option value="Deportes">Deportes</option>
+                  <option value="Guiness Books of Records">
+                    Guiness Books of Records
+                  </option>
                   <option value="Juegos">Juegos</option>
                   <option value="Manualidades">Manualidades</option>
                   <option value="Moda y Estilo de vida">
@@ -528,6 +567,12 @@ export default function CrearLibroPage() {
                   </option>
                   <option value="Mascotas y animales de compañía">
                     Mascotas y animales de compañía
+                  </option>
+                  <option value="Preguntas y Respuestas">
+                    Preguntas y Respuestas
+                  </option>
+                  <option value="Tradiciones y Fiestas">
+                    Tradiciones y Fiestas
                   </option>
                   <option value="Varios">Varios</option>
                 </optgroup>
@@ -572,6 +617,18 @@ export default function CrearLibroPage() {
                   <option value="Náutica">Náutica</option>
                   <option value="Química">Química</option>
                   <option value="Tecnología">Tecnología</option>
+                </optgroup>
+
+                <optgroup label="Varios">
+                  <option value="Enología">Enología</option>
+                  <option value="Cocina">Cocina</option>
+                  <option value="Adivinanzas y Acertijos">
+                    Adivinanzas y Acertijos
+                  </option>
+                  <option value="Curiosidades">Curiosidades</option>
+                  <option value="Frases Célebres">Frases Célebres</option>
+                  <option value="Humor">Humor</option>
+                  <option value="Manuales">Manuales</option>
                 </optgroup>
               </select>
             </div>
