@@ -554,7 +554,7 @@ export default function CrearLibroPage() {
                   <option value="Datos e información">
                     Datos e información
                   </option>
-                  <option value="">Acuariofilia</option>
+                  <option value="Acuariofilia">Acuariofilia</option>
                   <option value="Jardinería">Jardinería</option>
                   <option value="Deportes">Deportes</option>
                   <option value="Guiness Books of Records">
