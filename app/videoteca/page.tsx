@@ -103,7 +103,7 @@ export default function VideotecaPage() {
         <h1 className="text-3xl font-bold text-gray-800">Videos</h1>
         {isAuthenticated && (
           <Link
-            href="/videos/crear"
+            href="/videoteca/crear"
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center gap-2"
           >
             <Plus size={20} />
@@ -157,7 +157,7 @@ export default function VideotecaPage() {
             {/* Botones siempre en la parte inferior */}
             <div className="space-y-2 mt-auto">
               <Link
-                href={`/videos/${video["id"]}`}
+                href={`/videoteca/${video["id"]}`}
                 className="w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
               >
                 <Info size={16} />
@@ -167,7 +167,7 @@ export default function VideotecaPage() {
               {isAuthenticated && (
                 <div className="flex gap-2">
                   <Link
-                    href={`/libros/editar/${video["id"]}`}
+                    href={`/videoteca/editar/${video["id"]}`}
                     className="flex-1 bg-amber-500 text-white px-3 py-2 rounded-md hover:bg-amber-600 text-center text-sm font-medium transition-colors"
                   >
                     Editar
