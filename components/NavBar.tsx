@@ -1,44 +1,98 @@
-'use client'
-import Link from 'next/link'
-import { useState } from 'react'
-import { useAuth } from '@/context/AuthContext'
-import { LogOut, User, Home, BookOpen, Music, Menu, X } from 'lucide-react'
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import {
+  LogOut,
+  User,
+  Home,
+  BookOpen,
+  Music,
+  Menu,
+  X,
+  Clapperboard,
+  Disc,
+  SquareChartGantt,
+  Brush,
+} from "lucide-react";
 
 export default function Navbar() {
-  const { user, logout, isAuthenticated } = useAuth()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user, logout, isAuthenticated } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="bg-blue-600 text-white shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold flex items-center gap-2" onClick={closeMenu}>
+          <Link
+            href="/"
+            className="text-xl font-bold flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <Home size={24} />
             <span className="hidden sm:inline">Biblioteca Digital</span>
             <span className="sm:hidden">Biblioteca</span>
           </Link>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link href="/libros" className="flex items-center gap-2 hover:text-blue-200">
+            <Link
+              href="/libros"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
               <BookOpen size={20} />
               Libros
             </Link>
-            
-            <Link href="/cds" className="flex items-center gap-2 hover:text-blue-200">
+
+            <Link
+              href="/cds"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
               <Music size={20} />
               CDs
             </Link>
-            
+
+            <Link
+              href="/videoteca"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
+              <Clapperboard size={20} />
+              Videoteca
+            </Link>
+
+            <Link
+              href="/cd-rom"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
+              <Disc size={20} />
+              CD-ROM
+            </Link>
+
+            <Link
+              href="/revistas"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
+              <SquareChartGantt size={20} />
+              Revistas
+            </Link>
+
+            <Link
+              href="/arte"
+              className="flex items-center gap-2 hover:text-blue-200"
+            >
+              <Brush size={20} />
+              Cuadros y Esculturas
+            </Link>
+
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <span className="flex items-center gap-2">
@@ -71,7 +125,7 @@ export default function Navbar() {
                 {user?.username}
               </span>
             ) : null}
-            
+
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
@@ -86,29 +140,61 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden bg-blue-700 border-t border-blue-500">
             <div className="px-4 py-2 space-y-2">
-              <Link 
-                href="/libros" 
+              <Link
+                href="/libros"
                 className="flex items-center gap-2 py-2 hover:text-blue-200"
                 onClick={closeMenu}
               >
                 <BookOpen size={20} />
                 Libros
               </Link>
-              
-              <Link 
-                href="/cds" 
+
+              <Link
+                href="/cds"
                 className="flex items-center gap-2 py-2 hover:text-blue-200"
                 onClick={closeMenu}
               >
                 <Music size={20} />
                 CDs
               </Link>
-              
+
+              <Link
+                href="/videoteca"
+                className="flex items-center gap-2 hover:text-blue-200"
+              >
+                <Clapperboard size={20} />
+                Videoteca
+              </Link>
+
+              <Link
+                href="/cd-rom"
+                className="flex items-center gap-2 hover:text-blue-200"
+              >
+                <Disc size={20} />
+                CD-ROM
+              </Link>
+
+              <Link
+                href="/revistas"
+                className="flex items-center gap-2 hover:text-blue-200"
+              >
+                <SquareChartGantt size={20} />
+                Revistas
+              </Link>
+
+              <Link
+                href="/arte"
+                className="flex items-center gap-2 hover:text-blue-200"
+              >
+                <Brush size={20} />
+                Cuadros y Esculturas
+              </Link>
+
               {isAuthenticated ? (
                 <button
                   onClick={() => {
-                    logout()
-                    closeMenu()
+                    logout();
+                    closeMenu();
                   }}
                   className="flex items-center gap-2 py-2 text-left w-full hover:text-blue-200"
                 >
@@ -130,5 +216,5 @@ export default function Navbar() {
         )}
       </div>
     </nav>
-  )
+  );
 }
