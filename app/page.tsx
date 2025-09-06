@@ -18,9 +18,9 @@ export default function Home() {
             </p>
           </div>
         </Link>
-        <Link href="./cds" className="block">
+        <Link href="./musica" className="block">
           <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-2xl font-semibold mb-4">🎵 CDs</h3>
+            <h3 className="text-2xl font-semibold mb-4">🎵 Música</h3>
             <p className="text-gray-600">
               Navega por toda tu música de todos los estilos y épocas
             </p>
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
           </div>
         </Link>
-        <Link href="./cd-rom" className="block">
+        <Link href="./cds" className="block">
           <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
             <h3 className="text-2xl font-semibold mb-4">💿 CD-ROM</h3>
             <p className="text-gray-600">

@@ -54,11 +54,11 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/cds"
+              href="/musica"
               className="flex items-center gap-2 hover:text-blue-200"
             >
               <Music size={20} />
-              CDs
+              Música
             </Link>
 
             <Link
@@ -70,7 +70,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/cd-rom"
+              href="/cds"
               className="flex items-center gap-2 hover:text-blue-200"
             >
               <Disc size={20} />
@@ -150,12 +150,12 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/cds"
+                href="/musica"
                 className="flex items-center gap-2 py-2 hover:text-blue-200"
                 onClick={closeMenu}
               >
                 <Music size={20} />
-                CDs
+                Música
               </Link>
 
               <Link
@@ -167,7 +167,7 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/cd-rom"
+                href="/cds"
                 className="flex items-center gap-2 hover:text-blue-200"
               >
                 <Disc size={20} />
