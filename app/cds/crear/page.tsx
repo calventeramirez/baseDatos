@@ -95,7 +95,7 @@ export default function CrearCDROMPage() {
         },
         body: JSON.stringify({
           ...formData,
-          duracion: parseInt(formData.duracion),
+          duracion: parseFloat(formData.duracion),
           yearGrabacion: parseInt(formData.yearGrab),
         }),
       });
@@ -210,10 +210,10 @@ export default function CrearCDROMPage() {
                 htmlFor="duracion"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Duración (minutos)
+                Duración (minutos) *
               </label>
               <input
-                type="text"
+                type="number"
                 id="duracion"
                 name="duracion"
                 value={formData.duracion}
@@ -228,10 +228,10 @@ export default function CrearCDROMPage() {
                 htmlFor="yearGrabacion"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Año de Grabación
+                Año de Grabación *
               </label>
               <input
-                type="text"
+                type="number"
                 id="yearGrabacion"
                 name="yearGrab"
                 value={formData.yearGrab}
