@@ -1,36 +1,253 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 Biblioteca Digital
 
-## Getting Started
+Una plataforma integral de gestión de biblioteca digital desarrollada con Next.js, diseñada para catalogar y organizar múltiples tipos de contenido cultural y educativo.
 
-First, run the development server:
+## 🌟 Características
 
+### Colecciones Disponibles
+- **📖 Libros** - Gestión completa de biblioteca literaria
+- **🎵 Música** - Catálogo de discos y álbumes musicales  
+- **🎬 Videoteca** - Archivo de contenido audiovisual
+- **💿 CD-Rom** - Colección de software y multimedia
+- **📰 Revistas** - Hemeroteca digital
+- **🎨 Cuadros y Esculturas** - Galería de arte
+
+### Funcionalidades Principales
+- ✅ **Interfaz intuitiva** con navegación fluida
+- ✅ **Búsqueda avanzada** por múltiples criterios
+- ✅ **Visualización detallada** de cada elemento
+- ✅ **Gestión de imágenes** con modal de visualización
+- ✅ **Categorización especializada** para cada tipo de contenido
+- ✅ **Diseño responsive** adaptado a todos los dispositivos
+- ✅ **API REST** para gestión de datos
+
+## 🛠️ Tecnologías Utilizadas
+
+### Frontend
+- **Next.js 14** - Framework React con App Router
+- **TypeScript** - Tipado estático
+- **Tailwind CSS** - Framework de estilos
+- **Lucide React** - Iconografía moderna
+- **React Hooks** - Gestión de estado
+
+### Backend
+- **API REST** - Endpoints especializados para cada colección
+- **JSON** - Formato de intercambio de datos
+
+## 🚀 Instalación y Configuración
+
+### Prerrequisitos
+- Node.js 18.0 o superior
+- npm o yarn
+- Servidor backend ejecutándose en puerto 8000
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/tu-usuario/biblioteca-digital.git
+cd biblioteca-digital
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instalar dependencias**
+```bash
+npm install
+# o
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Configurar variables de entorno**
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Ejecutar en modo desarrollo**
+```bash
+npm run dev
+# o
+yarn dev
+```
 
-## Learn More
+5. **Abrir en el navegador**
+```
+http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Estructura del Proyecto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+biblioteca-digital/
+├── app/                          # App Router de Next.js
+│   ├── libros/                  # Sección de libros
+│   │   ├── [id]/               # Página de detalle de libro
+│   │   └── page.tsx            # Lista de libros
+│   ├── musica/                 # Sección de música
+│   │   ├── [id]/               # Página de detalle de disco
+│   │   └── page.tsx            # Lista de música
+│   ├── videoteca/              # Sección de videos
+│   ├── cdrom/                  # Sección de CD-Rom
+│   ├── revistas/               # Sección de revistas
+│   ├── arte/                   # Cuadros y esculturas
+│   ├── globals.css             # Estilos globales
+│   ├── layout.tsx              # Layout principal
+│   └── page.tsx                # Página de inicio
+├── components/                  # Componentes reutilizables
+│   ├── ui/                     # Componentes de interfaz
+│   ├── Navigation.tsx          # Navegación principal
+│   └── SearchBar.tsx           # Barra de búsqueda
+├── lib/                        # Utilidades y configuraciones
+├── types/                      # Definiciones de TypeScript
+│   ├── Book.ts                # Interfaz de libros
+│   ├── Disco.ts               # Interfaz de música
+│   └── index.ts               # Exportaciones
+├── public/                     # Archivos estáticos
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 Modelos de Datos
 
-## Deploy on Vercel
+### Libros
+```typescript
+interface Book {
+  id?: string
+  titulo: string
+  autor: string
+  categoria?: string
+  subcategoria?: string
+  enciclopedia?: string
+  colecciones?: string
+  editorial?: string
+  idioma?: string
+  numPag?: string
+  yearPub?: string
+  isbn?: string
+  depositoLegal?: string
+  fotoPortada?: string
+  fotoContraportada?: string
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Música
+```typescript
+interface Disco {
+  id?: string
+  titulo: string
+  artista: string
+  tipoArtista: string
+  tipoMusica: string
+  tipoMusicaClasica?: string
+  idioma: string
+  discografica: string
+  anoGrab: number
+  formato: string
+  colecciones: string
+  album: string
+  numPista: number
+  conciertos: string
+  fotoPortada?: string
+  fotoContraportada?: string
+  memo?: string
+  resenaBio?: string
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Características de Diseño
+
+### Sistema de Colores
+- **Libros**: Gradiente azul-índigo
+- **Música**: Gradiente púrpura-rosa
+- **Videos**: Gradiente rojo-naranja
+- **CD-Rom**: Gradiente verde-azul
+- **Revistas**: Gradiente amarillo-naranja
+- **Arte**: Gradiente dorado-marrón
+
+### Componentes UI
+- Cards responsivas con hover effects
+- Modales para visualización de imágenes
+- Formularios de búsqueda inteligentes
+- Navegación breadcrumb
+- Loading states y error handling
+
+## 🔍 Funcionalidades Especiales
+
+### Música Clásica
+Sistema especializado para categorizar música clásica por períodos:
+- Medieval o Antigua
+- Renacentista
+- Clasicista o Neoclásica
+- Romántica
+- Nacionalista
+- Contemporánea (Politonista, Dodecafónica, Atonalista)
+
+### Gestión de Imágenes
+- Visualización de portadas y contraportadas
+- Modal de imagen ampliada
+- Fallback para contenido sin imágenes
+- Optimización de carga
+
+## 📱 Responsive Design
+
+La aplicación está optimizada para:
+- 📱 **Mobile** (320px+)
+- 📱 **Tablet** (768px+) 
+- 💻 **Desktop** (1024px+)
+- 🖥️ **Large Desktop** (1440px+)
+
+## 🚦 API Endpoints
+
+```
+GET /libros              # Lista todos los libros
+GET /libros/{id}         # Detalle de un libro específico
+GET /musica              # Lista toda la música
+GET /musica/{id}         # Detalle de un disco específico
+GET /videoteca           # Lista videos
+GET /videoteca/{id}      # Detalle de video
+GET /cdrom               # Lista CD-Roms
+GET /cdrom/{id}          # Detalle de CD-Rom
+GET /revistas            # Lista revistas
+GET /revistas/{id}       # Detalle de revista
+GET /arte                # Lista obras de arte
+GET /arte/{id}           # Detalle de obra
+```
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👥 Equipo de Desarrollo
+
+- **Frontend**: Next.js + TypeScript + Tailwind CSS
+- **Backend**: API REST
+- **Diseño**: Sistema de componentes modular
+- **Testing**: Jest + Testing Library (próximamente)
+
+## 🔮 Roadmap
+
+### Próximas Funcionalidades
+- [ ] Sistema de autenticación y usuarios
+- [ ] Favoritos y listas personalizadas
+- [ ] Comentarios y reseñas
+- [ ] Exportación de catálogos
+- [ ] API GraphQL
+- [ ] PWA (Progressive Web App)
+- [ ] Búsqueda con filtros avanzados
+- [ ] Dashboard administrativo
+
+### Mejoras Técnicas
+- [ ] Tests unitarios y de integración
+- [ ] Optimización de imágenes con Next.js Image
+- [ ] Cache y performance
+- [ ] Internacionalización (i18n)
+- [ ] Accessibility improvements (A11y)
+
+---
+
+**🏛️ Biblioteca Digital** - *Preservando y organizando el conocimiento cultural para las futuras generaciones*
