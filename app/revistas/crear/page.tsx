@@ -304,7 +304,7 @@ export default function CrearRevistasPage() {
                 htmlFor="fechaEdicion"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Año de Edición
+                Año de Edición *
               </label>
               <input
                 type="number"
@@ -324,7 +324,7 @@ export default function CrearRevistasPage() {
                 htmlFor="numPag"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Número de Páginas
+                Número de Páginas * 
               </label>
               <input
                 type="number"
@@ -343,7 +343,7 @@ export default function CrearRevistasPage() {
                 htmlFor="numRevista"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Número de Revista
+                Número de Revista * 
               </label>
               <input
                 type="number"

@@ -147,6 +147,9 @@ export default function RevistasPage() {
                 {revista.titulo}
               </h3>
               <p className="text-sm text-gray-600 mb-2">
+                <span className="font-medium">Número de la revista:</span> {revista.numRevista || "No especificado"}
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
                 <span className="font-medium">Temática:</span> {revista.tematica || "No especificada"}
               </p>
               <p className="text-sm text-gray-600 mb-4">
