@@ -161,6 +161,7 @@ export default function Navbar() {
               <Link
                 href="/videoteca"
                 className="flex items-center gap-2 hover:text-blue-200"
+                onClick={closeMenu}
               >
                 <Clapperboard size={20} />
                 Videoteca
@@ -169,6 +170,7 @@ export default function Navbar() {
               <Link
                 href="/cds"
                 className="flex items-center gap-2 hover:text-blue-200"
+                onClick={closeMenu}
               >
                 <Disc size={20} />
                 CD-ROM
@@ -176,6 +178,7 @@ export default function Navbar() {
 
               <Link
                 href="/revistas"
+                onClick={closeMenu}
                 className="flex items-center gap-2 hover:text-blue-200"
               >
                 <SquareChartGantt size={20} />
@@ -185,6 +188,7 @@ export default function Navbar() {
               <Link
                 href="/arte"
                 className="flex items-center gap-2 hover:text-blue-200"
+                onClick={closeMenu}
               >
                 <Brush size={20} />
                 Cuadros y Esculturas
