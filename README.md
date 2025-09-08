@@ -153,14 +153,6 @@ interface Disco {
 
 ## 🎨 Características de Diseño
 
-### Sistema de Colores
-- **Libros**: Gradiente azul-índigo
-- **Música**: Gradiente púrpura-rosa
-- **Videos**: Gradiente rojo-naranja
-- **CD-Rom**: Gradiente verde-azul
-- **Revistas**: Gradiente amarillo-naranja
-- **Arte**: Gradiente dorado-marrón
-
 ### Componentes UI
 - Cards responsivas con hover effects
 - Modales para visualización de imágenes
@@ -225,28 +217,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 ## 👥 Equipo de Desarrollo
 
 - **Frontend**: Next.js + TypeScript + Tailwind CSS
-- **Backend**: API REST
+- **Backend**: FastAPI (Python)
 - **Diseño**: Sistema de componentes modular
-- **Testing**: Jest + Testing Library (próximamente)
-
-## 🔮 Roadmap
-
-### Próximas Funcionalidades
-- [ ] Sistema de autenticación y usuarios
-- [ ] Favoritos y listas personalizadas
-- [ ] Comentarios y reseñas
-- [ ] Exportación de catálogos
-- [ ] API GraphQL
-- [ ] PWA (Progressive Web App)
-- [ ] Búsqueda con filtros avanzados
-- [ ] Dashboard administrativo
-
-### Mejoras Técnicas
-- [ ] Tests unitarios y de integración
-- [ ] Optimización de imágenes con Next.js Image
-- [ ] Cache y performance
-- [ ] Internacionalización (i18n)
-- [ ] Accessibility improvements (A11y)
 
 ---
 
