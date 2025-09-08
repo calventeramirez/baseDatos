@@ -108,46 +108,110 @@ biblioteca-digital/
 
 ### Libros
 ```typescript
-interface Book {
-  id?: string
-  titulo: string
-  autor: string
-  categoria?: string
-  subcategoria?: string
-  enciclopedia?: string
-  colecciones?: string
-  editorial?: string
-  idioma?: string
-  numPag?: string
-  yearPub?: string
-  isbn?: string
-  depositoLegal?: string
-  fotoPortada?: string
-  fotoContraportada?: string
+interface Libro {
+  id?: string;
+  titulo: string;
+  autor: string;
+  categoria: string;
+  subcategoria?: string;
+  enciclopedia?: string;
+  colecciones?: string;
+  editorial: string;
+  idioma: string;
+  numPag: number;
+  yearPub: number;
+  isbn: string;
+  depositoLegal: string;
+  fotoPortada?: string;
+  fotoContraportada?: string;
 }
+
 ```
 
 ### Música
 ```typescript
 interface Disco {
-  id?: string
-  titulo: string
-  artista: string
-  tipoArtista: string
-  tipoMusica: string
-  tipoMusicaClasica?: string
-  idioma: string
-  discografica: string
-  anoGrab: number
-  formato: string
-  colecciones: string
-  album: string
-  numPista: number
-  conciertos: string
-  fotoPortada?: string
-  fotoContraportada?: string
-  memo?: string
+  id?: string,
+  titulo: string,
+  artista: string,
+  tipoArtista: string,
+  tipoMusica: string,
+  tipoMusicaClasica?: string,
+  idioma: string,
+  discografica: string,
+  anoGrab: number,
+  formato: string,
+  colecciones: string,
+  album: string,
+  numPista: number,
+  conciertos: string,
+  fotoPortada?: string,
+  fotoContraportada?: string,
+  memo?: string,
   resenaBio?: string
+}
+```
+
+### Videos
+```typescript
+interface Video {
+  id?: string;
+  tituloEsp: string;
+  tituloOrg?: string;
+  tematica: string;
+  director: string;
+  protagonistas: string;
+  companiaCinematografica: string;
+  duracion: number;
+  idiomasAudios: string;
+  idiomasSubtitulos: string;
+  formato: string;
+  pais: string;
+  nacionalidad: string;
+  portada?: string;
+  argumento: string;
+}
+```
+
+### CD-Roms
+```typescript
+interface CD {
+  id?: string,
+  titulo: string,
+  tematica: string,
+  duracion?: number,
+  yearGrab?: number,
+  coleccion?: string
+}
+```
+
+### Revistas
+```typescript
+interface Revista {
+  id?: string,
+  titulo: string,
+  tematica: string,
+  editorial: string,
+  fechaEdicion?: number,
+  numPag?: number,
+  numRevista?: number,
+  fotoPortada?: string
+}
+```
+
+### Cuadros y Esculturas
+```typescript
+interface Arte {
+  id?: string,
+  titulo: string,
+  autor: string,
+  tematica: string,
+  tecnicaPictorica?: string,
+  tecnicaEscultorica?: string,
+  certificado: boolean,
+  altura?: number,
+  anchura?: number,
+  peso?: number
 }
 ```
 
