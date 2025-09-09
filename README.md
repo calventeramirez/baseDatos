@@ -2,6 +2,8 @@
 
 Una plataforma integral de gestión de biblioteca digital desarrollada con Next.js, diseñada para catalogar y organizar múltiples tipos de contenido cultural y educativo.
 
+El repositorio del Backend está disponible en: [baseDatos_Backend](https://github.com/calventeramirez/baseDatos_Backend)
+
 ## 🌟 Características
 
 ### Colecciones Disponibles
@@ -40,6 +42,12 @@ Una plataforma integral de gestión de biblioteca digital desarrollada con Next.
 - Node.js 18.0 o superior
 - npm o yarn
 - Servidor backend ejecutándose en puerto 8000
+
+## 📂 Repositorios Relacionados
+
+- **Frontend:** [biblioteca-digital-frontend](enlace-del-frontend)
+- **Backend:** [baseDatos_Backend](https://github.com/calventeramirez/baseDatos_Backend)
+  
 
 ### Pasos de Instalación
 
