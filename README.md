@@ -85,29 +85,54 @@ http://localhost:3000
 
 ```
 biblioteca-digital/
-├── app/                          # App Router de Next.js
-│   ├── libros/                  # Sección de libros
+├── app/                        # App Router de Next.js
+│   ├── login/                 # Sección de login
+│   │   └── page.tsx            # Pagina de login con JWT
+│   ├── libros/                 # Sección de libros
 │   │   ├── [id]/               # Página de detalle de libro
+│   │   ├── crear/              # Página de crear los libro
+│   │   ├── editar/             # Página de editar los libro
 │   │   └── page.tsx            # Lista de libros
 │   ├── musica/                 # Sección de música
-│   │   ├── [id]/               # Página de detalle de disco
+│   │   ├── [id]/               # Página de detalle de música
+│   │   ├── crear/              # Página de crear la música
+│   │   ├── editar/             # Página de editar la música
 │   │   └── page.tsx            # Lista de música
 │   ├── videoteca/              # Sección de videos
+│   │   ├── [id]/               # Página de detalle de videos
+│   │   ├── crear/              # Página de crear los videos
+│   │   ├── editar/             # Página de editar los videos
+│   │   └── page.tsx            # Lista de música
 │   ├── cdrom/                  # Sección de CD-Rom
+│   │   ├── [id]/               # Página de detalle de CD-Rom
+│   │   ├── crear/              # Página de crear los CD-Rom
+│   │   ├── editar/             # Página de editar los CD-Rom
+│   │   └── page.tsx            # Lista de CD-Rom
 │   ├── revistas/               # Sección de revistas
+│   │   ├── [id]/               # Página de detalle de revistas
+│   │   ├── crear/              # Página de crear la revistas
+│   │   ├── editar/             # Página de editar la revista
+│   │   └── page.tsx            # Lista de revistas
 │   ├── arte/                   # Cuadros y esculturas
+│   │   ├── [id]/               # Página de detalle de cuadro y esculturas
+│   │   ├── crear/              # Página de crear los cuadros o esculturas
+│   │   ├── editar/             # Página de editar los cuadros o esculturas
+│   │   └── page.tsx            # Lista de cuadros y esculturas
+│   ├── type/                   # Interfaces de los productos
+│   │   ├── arte.tsx              
+│   │   ├── cd.tsx              
+│   │   ├── libro.tsx            
+│   │   ├── musica.tsx             
+│   │   ├── revista.tsx            
+│   │   └── videos.tsx          
 │   ├── globals.css             # Estilos globales
+│   ├── favicon.ico             # favicon
 │   ├── layout.tsx              # Layout principal
 │   └── page.tsx                # Página de inicio
-├── components/                  # Componentes reutilizables
-│   ├── ui/                     # Componentes de interfaz
-│   ├── Navigation.tsx          # Navegación principal
-│   └── SearchBar.tsx           # Barra de búsqueda
-├── lib/                        # Utilidades y configuraciones
-├── types/                      # Definiciones de TypeScript
-│   ├── Book.ts                # Interfaz de libros
-│   ├── Disco.ts               # Interfaz de música
-│   └── index.ts               # Exportaciones
+├── components/                 # Componentes reutilizables
+│   ├── NavBar.tsx              # Navegación principal
+│   └── SearchBox.tsx           # Barra de búsqueda
+├── context/                    # Utilidades y configuraciones
 ├── public/                     # Archivos estáticos
 └── README.md
 ```
