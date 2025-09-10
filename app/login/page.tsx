@@ -103,11 +103,6 @@ export default function LoginPage() {
           {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
         </button>
       </form>
-
-      <div className="mt-4 text-sm text-gray-600 text-center">
-        <p>Usuario de prueba: admin@biblioteca.com</p>
-        <p>Contraseña: admin</p>
-      </div>
     </div>
   );
 }
