@@ -13,11 +13,12 @@ export default function DiscosPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const discosPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchDiscos = async () => {
       try {
-        const res = await fetch("http://localhost:8000/musica/");
+        const res = await fetch(`${API_BASE}/musica/`);
         const data = await res.json();
         setDiscos(data);
         setFilteredDiscos(data);
@@ -74,7 +75,7 @@ export default function DiscosPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/musica/${discoId}`, {
+      const res = await fetch(`${API_BASE}/musica/${discoId}`, {
         method: "DELETE",
       });
 

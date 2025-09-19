@@ -14,6 +14,7 @@ export default function SetupPage() {
   const [checkingSetup, setCheckingSetup] = useState(true);
   const router = useRouter();
   const { login } = useAuth();
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   // Verificar si necesita setup al cargar la página
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function SetupPage() {
 
   const checkSetupStatus = async () => {
     try {
-      const response = await fetch("http://localhost:8000/estado/");
+      const response = await fetch(`${API_BASE}/estado/`);
       const data = await response.json();
       console.log("Estado del sistema:", data);
       console.log("Needs setup:", data.necesita_setup);

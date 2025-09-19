@@ -13,11 +13,12 @@ export default function RevistasPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const revistasPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchRevistas = async () => {
       try {
-        const res = await fetch("http://localhost:8000/revista/");
+        const res = await fetch(`${API_BASE}/revista/`);
         const data = await res.json();
         setRevistas(data);
         setFilteredRevistas(data);
@@ -73,7 +74,7 @@ export default function RevistasPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/revista/${revistaId}`, {
+      const res = await fetch(`${API_BASE}/revista/${revistaId}`, {
         method: "DELETE",
       });
 

@@ -125,8 +125,9 @@ export default function CrearRevistasPage() {
       };
 
       console.log("Datos a enviar:", dataToSend);
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
-      const res = await fetch("http://localhost:8000/revista/", {
+      const res = await fetch(`${API_BASE}/revista/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

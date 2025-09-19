@@ -10,6 +10,7 @@ export default function CrearRevistasPage() {
   const router = useRouter();
   const params = useParams();
   const revistaId = params.id;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const tematicas = [
     "Arquitectura",
@@ -53,7 +54,7 @@ export default function CrearRevistasPage() {
       if (!revistaId) return;
       
       try {
-        const res = await fetch(`http://localhost:8000/revista/${revistaId}`);
+        const res = await fetch(`${API_BASE}/revista/${revistaId}`);
         if (!res.ok) {
           throw new Error("Error al cargar la revista");
         }
@@ -158,7 +159,7 @@ export default function CrearRevistasPage() {
     console.log("Actualizando revista:", formData);
 
     try {
-      const res = await fetch("http://localhost:8000/revista/", {
+      const res = await fetch(`${API_BASE}/revista/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

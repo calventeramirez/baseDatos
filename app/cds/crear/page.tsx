@@ -8,6 +8,7 @@ import { ArrowLeft, Save } from "lucide-react";
 export default function CrearCDROMPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const tematicas = [
     "Arte",
@@ -88,7 +89,7 @@ export default function CrearCDROMPage() {
 
     console.log("Creando CDROM:", formData);
     try {
-      const res = await fetch("http://localhost:8000/cdrom/", {
+      const res = await fetch(`${API_BASE}/cdrom/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

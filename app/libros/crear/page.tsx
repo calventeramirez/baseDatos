@@ -8,6 +8,7 @@ import { ArrowLeft, Save, X } from "lucide-react";
 export default function CrearLibroPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const subcategoria: { [key: string]: string[] } = {
     Arquitectura: [
@@ -377,7 +378,7 @@ export default function CrearLibroPage() {
 
     console.log("Creando libro:", formData);
     try {
-      const res = await fetch("http://localhost:8000/libros/", {
+      const res = await fetch(`${API_BASE}/libros/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

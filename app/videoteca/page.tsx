@@ -13,11 +13,12 @@ export default function VideotecaPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const videosPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await fetch("http://localhost:8000/videos/");
+        const res = await fetch(`${API_BASE}/videos/`);
         const data = await res.json();
         setVideos(data);
         setFilteredVideos(data);
@@ -76,7 +77,7 @@ export default function VideotecaPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/videos/${videoId}`, {
+      const res = await fetch(`${API_BASE}/videos/${videoId}`, {
         method: "DELETE",
       });
 

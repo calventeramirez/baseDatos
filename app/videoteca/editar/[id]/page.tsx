@@ -61,6 +61,7 @@ export default function EditarVideoPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   // Redirección si no está autenticado
   useEffect(() => {
@@ -73,7 +74,7 @@ export default function EditarVideoPage() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/videos/${id}`);
+        const res = await fetch(`${API_BASE}/videos/${id}`);
         if (!res.ok) throw new Error("No se pudo cargar los datos del video");
         const data = await res.json();
         setFormData({
@@ -133,7 +134,7 @@ export default function EditarVideoPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/videos/`, {
+      const res = await fetch(`${API_BASE}/videos/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

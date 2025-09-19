@@ -8,6 +8,7 @@ import { ArrowLeft, Save, Palette } from "lucide-react";
 export default function CrearArtePage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const tematicas = [
     "Abstracto",
@@ -164,7 +165,7 @@ export default function CrearArtePage() {
 
       console.log("Datos a enviar:", dataToSend);
 
-      const res = await fetch("http://localhost:8000/arte/", {
+      const res = await fetch(`${API_BASE}/arte/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

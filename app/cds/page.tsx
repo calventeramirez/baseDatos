@@ -13,11 +13,12 @@ export default function CDROMsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const cdromsPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchCDROMs = async () => {
       try {
-        const res = await fetch("http://localhost:8000/cdrom/");
+        const res = await fetch(`${API_BASE}/cdrom/`);
         const data = await res.json();
         setCDROMs(data);
         setFilteredCDROMs(data);
@@ -72,7 +73,7 @@ export default function CDROMsPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/cdrom/${cdromId}`, {
+      const res = await fetch(`${API_BASE}/cdrom/${cdromId}`, {
         method: "DELETE",
       });
 

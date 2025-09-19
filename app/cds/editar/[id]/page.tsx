@@ -33,6 +33,7 @@ export default function EditarCDROMPage() {
   const [loading, setLoading] = useState(false);
   const [loadingCDROM, setLoadingCDROM] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   
   // Cargar los datos del CDROM al montar el componente
@@ -41,7 +42,7 @@ export default function EditarCDROMPage() {
       if (!cdromId) return;
       
       try {
-        const res = await fetch(`http://localhost:8000/cdrom/${cdromId}`);
+        const res = await fetch(`${API_BASE}/cdrom/${cdromId}`);
         if (!res.ok) {
           throw new Error('Error al cargar el CDROM');
         }
@@ -107,7 +108,7 @@ export default function EditarCDROMPage() {
 
     console.log("Actualizando CDROM:", submitData);
     try {
-      const res = await fetch("http://localhost:8000/cdrom/", {
+      const res = await fetch(`${API_BASE}/cdrom/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

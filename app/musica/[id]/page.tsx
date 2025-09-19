@@ -53,11 +53,12 @@ export default function MusicDetailPage({ params }: Props) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchDisc = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/musica/${resolvedParams.id}`, { cache: 'no-store' })
+        const res = await fetch(`${API_BASE}/musica/${resolvedParams.id}`, { cache: 'no-store' })
         
         if (!res.ok) {
           setError(true)

@@ -61,6 +61,7 @@ export default function EditarArtePage() {
   const [loading, setLoading] = useState(false);
   const [loadingArte, setLoadingArte] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   // Manejar redirección de autenticación en useEffect
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function EditarArtePage() {
       if (!arteId) return;
       
       try {
-        const res = await fetch(`http://localhost:8000/arte/${arteId}`);
+        const res = await fetch(`${API_BASE}/arte/${arteId}`);
         if (!res.ok) {
           throw new Error('Error al cargar la obra de arte');
         }
@@ -207,7 +208,7 @@ export default function EditarArtePage() {
     console.log("Actualizando obra de arte:", submitData);
     
     try {
-      const res = await fetch("http://localhost:8000/arte/", {
+      const res = await fetch(`${API_BASE}/arte/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

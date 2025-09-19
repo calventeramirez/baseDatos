@@ -50,12 +50,13 @@ export default function VideoDetailPage({ params }: Props) {
     src: string;
     alt: string;
   } | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/videos/${resolvedParams.id}`,
+          `${API_BASE}/videos/${resolvedParams.id}`,
           { cache: "no-store" }
         );
 

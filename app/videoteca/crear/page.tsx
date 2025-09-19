@@ -71,6 +71,7 @@ export default function CrearVideoPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   // Mostrar loading mientras se verifica la autenticación
   if (!isAuthenticated) {
@@ -128,7 +129,7 @@ export default function CrearVideoPage() {
 
     console.log("Creando video:", formData);
     try {
-      const res = await fetch("http://localhost:8000/videos/", {
+      const res = await fetch(`${API_BASE}/videos/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

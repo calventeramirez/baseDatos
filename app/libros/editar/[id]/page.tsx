@@ -10,6 +10,7 @@ export default function EditarLibroPage() {
   const router = useRouter();
   const params = useParams();
   const bookId = params.id;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const subcategoria: { [key: string]: string[] } = {
     Arquitectura: [
@@ -323,7 +324,7 @@ export default function EditarLibroPage() {
       if (!bookId) return;
       
       try {
-        const res = await fetch(`http://localhost:8000/libros/${bookId}`);
+        const res = await fetch(`${API_BASE}/libros/${bookId}`);
         if (!res.ok) {
           throw new Error('Error al cargar el libro');
         }
@@ -387,7 +388,7 @@ export default function EditarLibroPage() {
 
     console.log("Actualizando libro:", formData);
     try {
-      const res = await fetch("http://localhost:8000/libros/", {
+      const res = await fetch(`${API_BASE}/libros/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

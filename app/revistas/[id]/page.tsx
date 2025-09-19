@@ -35,11 +35,12 @@ export default function RevistaDetailPage({ params }: Props) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchRevista = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/revista/${resolvedParams.id}`, { cache: 'no-store' })
+        const res = await fetch(`${API_BASE}/revista/${resolvedParams.id}`, { cache: 'no-store' })
         
         if (!res.ok) {
           setError(true)

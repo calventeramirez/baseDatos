@@ -13,11 +13,12 @@ export default function ArtePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const obrasPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchObras = async () => {
       try {
-        const res = await fetch("http://localhost:8000/arte/");
+        const res = await fetch(`${API_BASE}/arte/`);
         const data = await res.json();
         setObras(data);
         setFilteredObras(data);
@@ -73,7 +74,7 @@ export default function ArtePage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/arte/${obraId}`, {
+      const res = await fetch(`${API_BASE}/arte/${obraId}`, {
         method: "DELETE",
       });
 

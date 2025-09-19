@@ -13,11 +13,13 @@ export default function LibrosPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const booksPerPage = 10;
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await fetch("http://localhost:8000/libros/");
+        const res = await fetch(`${API_BASE}/libros/`);
         const data = await res.json();
         setBooks(data);
         setFilteredBooks(data);

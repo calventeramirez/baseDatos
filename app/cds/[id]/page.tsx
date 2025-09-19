@@ -22,11 +22,12 @@ export default function CDROMDetailPage({ params }: Props) {
   const [cdrom, setCdrom] = useState<CD | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   useEffect(() => {
     const fetchCDROM = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/cdrom/${resolvedParams.id}`, { cache: 'no-store' })
+        const res = await fetch(`${API_BASE}/cdrom/${resolvedParams.id}`, { cache: 'no-store' })
         
         if (!res.ok) {
           setError(true)

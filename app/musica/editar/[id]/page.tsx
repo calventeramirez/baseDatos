@@ -198,6 +198,7 @@ export default function EditarMusicaPage() {
   const [loading, setLoading] = useState(false);
   const [loadingMusica, setLoadingMusica] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   
   //Cargar los datos del disco al montar el componente
@@ -206,7 +207,7 @@ export default function EditarMusicaPage() {
       if(!musicaId) return;
       
       try{
-        const res = await fetch(`http://localhost:8000/musica/${musicaId}`);
+        const res = await fetch(`${API_BASE}/musica/${musicaId}`);
         if(!res.ok){
           throw new Error("Error al obtener los datos del disco");
         }

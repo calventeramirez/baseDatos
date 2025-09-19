@@ -8,6 +8,7 @@ import { ArrowLeft, Save, X } from "lucide-react";
 export default function CrearMusicaPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
   const tipo_clasica: { [key: string]: string[] } = {
     "Medieval o Antigua": [
@@ -259,7 +260,7 @@ export default function CrearMusicaPage() {
         numPista: formData.numPista ? parseInt(formData.numPista) : null,
       };
 
-      const res = await fetch("http://localhost:8000/musica/", {
+      const res = await fetch(`${API_BASE}/musica/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
