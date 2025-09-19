@@ -54,7 +54,7 @@ export default function LibrosPage() {
   const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
   // Cambiar página
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
   // Navegación anterior/siguiente
   const goToPreviousPage = () => {
@@ -65,7 +65,7 @@ export default function LibrosPage() {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleDelete = async (bookId: any) => {
+  const handleDelete = async (bookId:string) => {
     // Confirmar antes de eliminar
     if (!confirm("¿Estás seguro de que quieres eliminar este libro?")) {
       return;
@@ -89,7 +89,7 @@ export default function LibrosPage() {
     }
   };
 
-  const handleSearch = (term: any) => {
+  const handleSearch = (term:string) => {
     setSearchTerm(term);
   };
 

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { ArrowLeft, Save, X } from "lucide-react";
+import { ArrowLeft, Save } from "lucide-react";
 
 export default function CrearCDROMPage() {
   const { isAuthenticated } = useAuth();

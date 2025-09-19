@@ -60,6 +60,7 @@ export default function LibroDetailPage({ params }: Props) {
         const bookData = await res.json()
         setBook(bookData)
       } catch (err) {
+        console.log(err)
         setError(true)
       } finally {
         setLoading(false)

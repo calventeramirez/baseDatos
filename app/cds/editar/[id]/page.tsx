@@ -34,11 +34,7 @@ export default function EditarCDROMPage() {
   const [loadingCDROM, setLoadingCDROM] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  if (!isAuthenticated) {
-    router.push("/login");
-    return null;
-  }
-
+  
   // Cargar los datos del CDROM al montar el componente
   useEffect(() => {
     const fetchCDROM = async () => {
@@ -67,10 +63,15 @@ export default function EditarCDROMPage() {
         setLoadingCDROM(false);
       }
     };
-
+    
     fetchCDROM();
   }, [cdromId]);
-
+  
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

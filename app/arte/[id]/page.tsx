@@ -7,7 +7,6 @@ import {
   Tag, 
   Palette, 
   User,
-  Award,
   Ruler,
   Weight,
   CheckCircle,
@@ -53,6 +52,7 @@ export default function ArteDetailPage({ params }: Props) {
         const arteData = await res.json()
         setObra(arteData)
       } catch (err) {
+        console.log(err)
         setError(true)
       } finally {
         setLoading(false)
@@ -246,7 +246,7 @@ export default function ArteDetailPage({ params }: Props) {
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-2">Información de la Obra</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Esta {tipoObra} titulada <strong>"{obra.titulo}"</strong> fue creada por <strong>{obra.autor}</strong>.
+                    Esta {tipoObra} titulada <strong>&quot;{obra.titulo}&quot;</strong> fue creada por <strong>{obra.autor}</strong>.
                     {` La obra pertenece a la temática ${obra.tematica.toLowerCase()}`}
                     {` y utiliza la técnica ${tipoObra === 'escultura' ? 'escultórica' : 'pictórica'} de ${tecnica.toLowerCase()}`}.
                     {obra.altura || obra.anchura ? ` Sus medidas son ${formatMedidas(obra.altura, obra.anchura).toLowerCase()}.` : ''}

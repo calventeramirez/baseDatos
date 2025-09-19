@@ -10,7 +10,6 @@ import {
   BookOpen, 
   Building2, 
   FileText, 
-  User,
   Image as ImageIcon,
   X
 } from 'lucide-react'
@@ -50,6 +49,7 @@ export default function RevistaDetailPage({ params }: Props) {
         const revistaData = await res.json()
         setRevista(revistaData)
       } catch (err) {
+        console.log(err)
         setError(true)
       } finally {
         setLoading(false)

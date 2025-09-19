@@ -5,12 +5,10 @@ import { useState, useEffect, use } from 'react'
 import { 
   ArrowLeft, 
   Calendar, 
-  Tag, 
-  Hash, 
+  Tag,
   Disc3, 
   Clock, 
   BookOpen,
-  User,
   Play
 } from 'lucide-react'
 import { CD } from '@/app/type/cd'
@@ -38,6 +36,7 @@ export default function CDROMDetailPage({ params }: Props) {
         const cdromData = await res.json()
         setCdrom(cdromData)
       } catch (err) {
+        console.log(err)
         setError(true)
       } finally {
         setLoading(false)

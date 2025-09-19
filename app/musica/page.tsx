@@ -56,7 +56,7 @@ export default function DiscosPage() {
   const totalPages = Math.ceil(filteredDiscos.length / discosPerPage);
 
   // Cambiar página
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Navegación anterior/siguiente
   const goToPreviousPage = () => {
@@ -67,7 +67,7 @@ export default function DiscosPage() {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleDelete = async (discoId: any) => {
+  const handleDelete = async (discoId: string) => {
     // Confirmar antes de eliminar
     if (!confirm("¿Estás seguro de que quieres eliminar este disco?")) {
       return;
@@ -91,7 +91,7 @@ export default function DiscosPage() {
     }
   };
 
-  const handleSearch = (term: any) => {
+  const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
 

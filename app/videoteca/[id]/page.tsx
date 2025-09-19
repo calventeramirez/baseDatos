@@ -4,16 +4,13 @@ import Link from "next/link";
 import { useState, useEffect, use } from "react";
 import {
   ArrowLeft,
-  Calendar,
   Tag,
-  Hash,
   Play,
   Users,
   Globe,
   FileText,
   Clock,
   Film,
-  User,
   Image as ImageIcon,
   X,
   Camera,
@@ -70,6 +67,7 @@ export default function VideoDetailPage({ params }: Props) {
         const videoData = await res.json();
         setVideo(videoData);
       } catch (err) {
+        console.log("Error", err);
         setError(true);
       } finally {
         setLoading(false);
@@ -149,7 +147,7 @@ export default function VideoDetailPage({ params }: Props) {
                 </h1>
                 {video.tituloOrg && video.tituloOrg !== video.tituloEsp && (
                   <h2 className="text-2xl text-gray-500 mb-3 italic">
-                    "{video.tituloOrg}"
+                    &quot;{video.tituloOrg}&quot;
                   </h2>
                 )}
                 <div className="flex items-center gap-2 mb-2">

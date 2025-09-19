@@ -316,11 +316,7 @@ export default function EditarLibroPage() {
   const [loadingBook, setLoadingBook] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  if (!isAuthenticated) {
-    router.push("/login");
-    return null;
-  }
-
+  
   // Cargar los datos del libro al montar el componente
   useEffect(() => {
     const fetchBook = async () => {
@@ -358,10 +354,15 @@ export default function EditarLibroPage() {
         setLoadingBook(false);
       }
     };
-
+    
     fetchBook();
   }, [bookId]);
-
+  
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

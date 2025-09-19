@@ -5,7 +5,6 @@ import { useState, useEffect, use } from 'react'
 import { 
   ArrowLeft, 
   Calendar, 
-  Tag, 
   Hash, 
   Music, 
   Building2, 
@@ -68,6 +67,7 @@ export default function MusicDetailPage({ params }: Props) {
         const discData = await res.json()
         setDisc(discData)
       } catch (err) {
+        console.log(err)
         setError(true)
       } finally {
         setLoading(false)

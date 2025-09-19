@@ -516,7 +516,7 @@ export default function CrearMusicaPage() {
                 <option value="Ranchera">Ranchera</option>
                 <option value="Reggaetón">Reggaetón</option>
                 <option value="Reggae">Reggae</option>
-                <option value="Rock'n'Roll">Rock'n'Roll</option>
+                <option value="Rock'n'Roll">Rock&apos;n&apos;Roll</option>
                 <option value="Romántica">Romántica</option>
                 <option value="Salsa">Salsa</option>
                 <option value="Samba">Samba</option>

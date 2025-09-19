@@ -58,7 +58,7 @@ export default function VideotecaPage() {
   const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
 
   // Cambiar página
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Navegación anterior/siguiente
   const goToPreviousPage = () => {
@@ -69,7 +69,7 @@ export default function VideotecaPage() {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleDelete = async (videoId: any) => {
+  const handleDelete = async (videoId: string) => {
     // Confirmar antes de eliminar
     if (!confirm("¿Estás seguro de que quieres eliminar este video?")) {
       return;
@@ -93,7 +93,7 @@ export default function VideotecaPage() {
     }
   };
 
-    const handleSearch = (term: any) => {
+    const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
 

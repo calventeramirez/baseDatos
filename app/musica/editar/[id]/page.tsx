@@ -199,58 +199,59 @@ export default function EditarMusicaPage() {
   const [loadingMusica, setLoadingMusica] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  
+  //Cargar los datos del disco al montar el componente
+  useEffect(()=> {
+    const fetchMusica = async()  => {
+      if(!musicaId) return;
+      
+      try{
+        const res = await fetch(`http://localhost:8000/musica/${musicaId}`);
+        if(!res.ok){
+          throw new Error("Error al obtener los datos del disco");
+        }
+        const musicaData = await res.json();
+        
+        //Rellenar el formulario con los datos del disco
+        setFormData({
+          id: musicaData.id || "",
+          titulo: musicaData.titulo || "",
+          artista: musicaData.artista || "",
+          tipoArtista: musicaData.tipoArtista || "",
+          tipoMusica: musicaData.tipoMusica || "",
+          tipoMusicaClasica: musicaData.tipoMusicaClasica || "",
+          idioma: musicaData.idioma || "",
+          discografica: musicaData.discografica || "",
+          anoGrab: musicaData.anoGrab?.toString() || "",
+          formato: musicaData.formato || "",
+          colecciones: musicaData.colecciones || "",
+          album: musicaData.album || "",
+          numPista: musicaData.numPista?.toString() || "",
+          conciertos: musicaData.conciertos || "",
+          fotoPortada: musicaData.fotoPortada || "",
+          fotoContraportada: musicaData.fotoContraportada || "",
+          memo: musicaData.memo || "",
+          resenaBio: musicaData.resenaBio || "",
+        });
+      }catch (error) {
+        console.error("Error al cargar los datos del disco:", error);
+        setError("Error al cargar los datos del disco");
+      } finally {
+        setLoadingMusica(false);
+      }
+    }
+    fetchMusica();
+  }, [musicaId]);
+  
   if (!isAuthenticated) {
     router.push("/login");
     return null;
   }
 
-  //Cargar los datos del disco al montar el componente
-  useEffect(()=> {
-    const fetchMusica = async()  => {
-        if(!musicaId) return;
-
-        try{
-            const res = await fetch(`http://localhost:8000/musica/${musicaId}`);
-            if(!res.ok){
-                throw new Error("Error al obtener los datos del disco");
-            }
-            const musicaData = await res.json();
-
-            //Rellenar el formulario con los datos del disco
-            setFormData({
-                id: musicaData.id || "",
-                titulo: musicaData.titulo || "",
-                artista: musicaData.artista || "",
-                tipoArtista: musicaData.tipoArtista || "",
-                tipoMusica: musicaData.tipoMusica || "",
-                tipoMusicaClasica: musicaData.tipoMusicaClasica || "",
-                idioma: musicaData.idioma || "",
-                discografica: musicaData.discografica || "",
-                anoGrab: musicaData.anoGrab?.toString() || "",
-                formato: musicaData.formato || "",
-                colecciones: musicaData.colecciones || "",
-                album: musicaData.album || "",
-                numPista: musicaData.numPista?.toString() || "",
-                conciertos: musicaData.conciertos || "",
-                fotoPortada: musicaData.fotoPortada || "",
-                fotoContraportada: musicaData.fotoContraportada || "",
-                memo: musicaData.memo || "",
-                resenaBio: musicaData.resenaBio || "",
-            });
-        }catch (error) {
-            console.error("Error al cargar los datos del disco:", error);
-            setError("Error al cargar los datos del disco");
-        } finally {
-            setLoadingMusica(false);
-        }
-    }
-    fetchMusica();
-  }, [musicaId]);
-
   // Función para validar el año de grabación
   const validateAnoGrab = () => {
     const errors: string[] = [];
-
+    
     if (formData.anoGrab.trim()) {
       const year = parseInt(formData.anoGrab);
       const currentYear = new Date().getFullYear();
@@ -562,7 +563,7 @@ export default function EditarMusicaPage() {
                 <option value="Ranchera">Ranchera</option>
                 <option value="Reggaetón">Reggaetón</option>
                 <option value="Reggae">Reggae</option>
-                <option value="Rock'n'Roll">Rock'n'Roll</option>
+                <option value="Rock'n'Roll">Rock&apos;n&apos;Roll</option>
                 <option value="Romántica">Romántica</option>
                 <option value="Salsa">Salsa</option>
                 <option value="Samba">Samba</option>

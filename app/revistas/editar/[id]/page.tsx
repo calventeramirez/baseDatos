@@ -46,29 +46,19 @@ export default function CrearRevistasPage() {
     }
   }, [isAuthenticated, router]);
 
-  if (!isAuthenticated) {
-    return (
-      <div className="container mx-auto p-6">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Verificando autenticación...</p>
-        </div>
-      </div>
-    );
-  }
-
+  
   //Cargar los datos del libro al montar el componente
   useEffect(() => {
     const fetchRevista = async () => {
       if (!revistaId) return;
-
+      
       try {
         const res = await fetch(`http://localhost:8000/revista/${revistaId}`);
         if (!res.ok) {
           throw new Error("Error al cargar la revista");
         }
         const revistaData = await res.json();
-
+        
         // Rellenar el formulario con los datos de la revista
         setFormData({
           id: revistaData.id || "",
@@ -87,10 +77,21 @@ export default function CrearRevistasPage() {
         setLoadingRevista(false);
       }
     };
-
+    
     fetchRevista();
   }, [revistaId]);
-
+  
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto p-6">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verificando autenticación...</p>
+        </div>
+      </div>
+    );
+  }
+  
   // Función para validar campos numéricos
   const validateNumericFields = () => {
     const errors: string[] = [];

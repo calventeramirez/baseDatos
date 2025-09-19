@@ -54,7 +54,7 @@ export default function CDROMsPage() {
   const totalPages = Math.ceil(filteredCDROMs.length / cdromsPerPage);
 
   // Cambiar página
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Navegación anterior/siguiente
   const goToPreviousPage = () => {
@@ -65,7 +65,7 @@ export default function CDROMsPage() {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleDelete = async (cdromId: any) => {
+  const handleDelete = async (cdromId: string) => {
     // Confirmar antes de eliminar
     if (!confirm("¿Estás seguro de que quieres eliminar este CD-ROM?")) {
       return;
@@ -89,7 +89,7 @@ export default function CDROMsPage() {
     }
   };
 
-  const handleSearch = (term: any) => {
+  const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
 
@@ -161,7 +161,7 @@ export default function CDROMsPage() {
                     Editar
                   </Link>
                   <button
-                    onClick={() => handleDelete(cdrom["id"])}
+                    onClick={() => cdrom["id"] !== undefined && handleDelete(cdrom["id"])}
                     className="flex-1 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 text-sm font-medium transition-colors cursor-pointer"
                   >
                     Eliminar

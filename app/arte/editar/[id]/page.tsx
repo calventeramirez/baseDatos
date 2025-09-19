@@ -69,18 +69,7 @@ export default function EditarArtePage() {
     }
   }, [isAuthenticated, router]);
 
-  // Mostrar loading mientras se verifica autenticación
-  if (!isAuthenticated) {
-    return (
-      <div className="container mx-auto p-6">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Verificando autenticación...</p>
-        </div>
-      </div>
-    );
-  }
-
+  
   // Cargar los datos de la obra de arte al montar el componente
   useEffect(() => {
     const fetchArte = async () => {
@@ -117,10 +106,22 @@ export default function EditarArtePage() {
         setLoadingArte(false);
       }
     };
-
+    
     fetchArte();
   }, [arteId]);
-
+  
+  // Mostrar loading mientras se verifica autenticación
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto p-6">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verificando autenticación...</p>
+        </div>
+      </div>
+    );
+  }
+  
   // Función para validar números
   const validateNumericFields = () => {
     const errors: string[] = [];
