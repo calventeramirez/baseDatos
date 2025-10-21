@@ -9,5 +9,6 @@ export interface Arte {
   certificado: boolean,
   altura?: number,
   anchura?: number,
-  peso?: number
+  peso?: number,
+  foto: string,
 }

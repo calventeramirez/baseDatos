@@ -129,20 +129,26 @@ export default function ArtePage() {
             key={obra.id}
             className="bg-white rounded-lg shadow-md p-4 flex flex-col h-full"
           >
-            {/* Imagen representativa de la obra */}
+            {/* Imagen de la obra */}
             <div className="relative h-64 bg-gradient-to-b from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden mb-4 rounded-lg">
-              <div className="text-gray-400 text-center p-4">
-                <div className="w-16 h-16 mx-auto mb-2 border-2 border-gray-300 rounded-full flex items-center justify-center bg-white">
-                  {getTipoObra(obra) === 'escultura' ? (
-                    <span className="text-2xl">🗿</span>
-                  ) : (
-                    <Palette size={32} className="text-gray-400" />
-                  )}
+              {obra.foto ? (
+                <img
+                  src={obra.foto}
+                  alt={`${obra.titulo} - ${obra.autor}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="text-gray-400 text-center p-4">
+                  <div className="w-16 h-16 mx-auto mb-2 border-2 border-gray-300 rounded-full flex items-center justify-center bg-white">
+                    {getTipoObra(obra) === 'escultura' ? (
+                      <span className="text-2xl">🗿</span>
+                    ) : (
+                      <Palette size={32} className="text-gray-400" />
+                    )}
+                  </div>
+                  <p className="text-sm">Sin imagen</p>
                 </div>
-                <p className="text-sm capitalize">
-                  {getTipoObra(obra)}
-                </p>
-              </div>
+              )}
             </div>
 
             {/* Contenido que puede variar en altura */}
@@ -151,7 +157,7 @@ export default function ArtePage() {
                 {obra.titulo}
               </h3>
               <p className="text-sm text-gray-600 mb-2">
-                <span className="font-medium">Autor:</span> {obra.autor || "Desconocido"}
+                por <span className="font-medium">{obra.autor || "Desconocido"}</span>
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${

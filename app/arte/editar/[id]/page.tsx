@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { ArrowLeft, Save, Palette } from "lucide-react";
+import { ArrowLeft, Save, Palette, X } from "lucide-react";
 
 export default function EditarArtePage() {
   const { isAuthenticated } = useAuth();
@@ -56,6 +56,7 @@ export default function EditarArtePage() {
     altura: "",
     anchura: "", 
     peso: "",
+    foto: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -99,6 +100,7 @@ export default function EditarArtePage() {
           altura: arteData.altura?.toString() || "",
           anchura: arteData.anchura?.toString() || "",
           peso: arteData.peso?.toString() || "",
+          foto: arteData.foto || "",
         });
       } catch (error) {
         console.error('Error al cargar la obra de arte:', error);
@@ -109,7 +111,7 @@ export default function EditarArtePage() {
     };
     
     fetchArte();
-  }, [arteId]);
+  }, [arteId, API_BASE]);
   
   // Mostrar loading mientras se verifica autenticación
   if (!isAuthenticated) {
@@ -203,6 +205,7 @@ export default function EditarArtePage() {
       altura: formData.altura ? formData.altura : "",
       anchura: formData.anchura ? formData.anchura : "",
       peso: formData.peso ? formData.peso : "",
+      foto: formData.foto || "",
     };
 
     console.log("Actualizando obra de arte:", submitData);
@@ -268,6 +271,27 @@ export default function EditarArtePage() {
         [name]: value,
       }));
     }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files && files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: reader.result as string,
+        }));
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const removeImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      foto: "",
+    }));
   };
 
   const handleTipoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -529,6 +553,44 @@ export default function EditarArtePage() {
             </div>
           </div>
 
+          {/* Imagen de la obra */}
+          <div>
+            <label
+              htmlFor="foto"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Imagen de la Obra
+            </label>
+            <input
+              type="file"
+              id="foto"
+              name="foto"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                      file:rounded-md file:border-0 file:text-sm file:font-semibold 
+                      file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+            />
+            {formData.foto && (
+              <div className="mt-3 relative inline-block">
+                <div className="w-32 h-32 border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+                  <img
+                    src={formData.foto}
+                    alt="Vista previa de la obra"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            )}
+          </div>
+
           {/* Información adicional */}
           <div className="bg-blue-50 p-4 rounded-lg">
             <h3 className="text-sm font-medium text-gray-800 mb-2">
@@ -540,6 +602,7 @@ export default function EditarArtePage() {
               <li>• El peso se especifica en kilogramos (kg)</li>
               <li>• El certificado indica si la obra cuenta con autenticación oficial</li>
               <li>• Debe seleccionar la técnica correspondiente al tipo de obra</li>
+              <li>• Puede cambiar la imagen o eliminarla haciendo click en la X</li>
             </ul>
           </div>
 

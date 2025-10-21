@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { ArrowLeft, Save, Palette } from "lucide-react";
+import { ArrowLeft, Save, Palette, X } from "lucide-react";
 
 export default function CrearArtePage() {
   const { isAuthenticated } = useAuth();
@@ -55,6 +55,7 @@ export default function CrearArtePage() {
     altura: "",
     anchura: "", 
     peso: "",
+    foto: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -62,20 +63,20 @@ export default function CrearArtePage() {
 
   //Manejar redireccion en useEffect
   useEffect(() => {
-  if (!isAuthenticated) {
-    router.push("/login");
-  }
-}, [isAuthenticated, router]);
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
 
   if (!isAuthenticated) {
     return (
-    <div className="container mx-auto p-6">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Verificando autenticación...</p>
+      <div className="container mx-auto p-6">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verificando autenticación...</p>
+        </div>
       </div>
-    </div>
-  );
+    );
   }
 
   // Función para validar números
@@ -161,6 +162,7 @@ export default function CrearArtePage() {
         altura: formData ? formData.altura : "",
         anchura: formData ? formData.anchura : "",
         peso: formData ? formData.peso : "",
+        foto: formData ? formData.foto : "",
       };
 
       console.log("Datos a enviar:", dataToSend);
@@ -214,6 +216,27 @@ export default function CrearArtePage() {
         [name]: value,
       }));
     }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files && files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: reader.result as string,
+        }));
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const removeImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      foto: "",
+    }));
   };
 
   const handleTipoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -416,6 +439,7 @@ export default function CrearArtePage() {
               <input
                 type="number"
                 step={0.1}
+                id="altura"
                 name="altura"
                 value={formData.altura}
                 onChange={handleChange}
@@ -461,6 +485,44 @@ export default function CrearArtePage() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+          </div>
+
+          {/* Imagen de la obra */}
+          <div>
+            <label
+              htmlFor="foto"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Imagen de la Obra
+            </label>
+            <input
+              type="file"
+              id="foto"
+              name="foto"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 
+                      file:rounded-md file:border-0 file:text-sm file:font-semibold 
+                      file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+            />
+            {formData.foto && (
+              <div className="mt-3 relative inline-block">
+                <div className="w-32 h-32 border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+                  <img
+                    src={formData.foto}
+                    alt="Vista previa de la obra"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Botón de envío */}
