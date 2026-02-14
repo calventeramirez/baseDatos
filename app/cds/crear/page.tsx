@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
@@ -10,6 +10,16 @@ export default function CrearCDROMPage() {
   const router = useRouter();
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return <div>Cargando...</div>;
+  }
+
   const tematicas = [
     "Arte",
     "Historia",
@@ -17,7 +27,7 @@ export default function CrearCDROMPage() {
     "Juegos",
     "Programas",
     "Tecnología",
-    "Viajes"
+    "Viajes",
   ];
 
   const [formData, setFormData] = useState({
@@ -44,7 +54,9 @@ export default function CrearCDROMPage() {
     // Validar duración
     const duracion = parseInt(formData.duracion);
     if (isNaN(duracion) || duracion <= 0 || !Number.isInteger(duracion)) {
-      errors.push("La duración debe ser un número entero positivo (en minutos)");
+      errors.push(
+        "La duración debe ser un número entero positivo (en minutos)",
+      );
     }
 
     // Validar año de grabación
@@ -57,7 +69,7 @@ export default function CrearCDROMPage() {
       !Number.isInteger(yearGrabacion)
     ) {
       errors.push(
-        `El año de grabación debe ser un número entero entre 1980 (año de creación del CD-ROM) y ${currentYear}`
+        `El año de grabación debe ser un número entero entre 1980 (año de creación del CD-ROM) y ${currentYear}`,
       );
     }
 
@@ -70,10 +82,7 @@ export default function CrearCDROMPage() {
     setError(null);
 
     // Validación de los campos obligatorios
-    if (
-      !formData.titulo ||
-      !formData.tematica
-    ) {
+    if (!formData.titulo || !formData.tematica) {
       setError("Todos los campos marcados con * son obligatorios");
       setLoading(false);
       return;
@@ -118,7 +127,7 @@ export default function CrearCDROMPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
 

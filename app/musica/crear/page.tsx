@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
@@ -9,6 +9,16 @@ export default function CrearMusicaPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return <div>Cargando...</div>; // mientras se redirige
+  }
 
   const tipo_clasica: { [key: string]: string[] } = {
     "Medieval o Antigua": [
@@ -21,7 +31,7 @@ export default function CrearMusicaPage() {
       "Poemas Sinfónicos",
       "Compositores",
     ],
-    "Renacentista": [
+    Renacentista: [
       "Óperas",
       "Música de cámara",
       "Sinfonías",
@@ -41,7 +51,7 @@ export default function CrearMusicaPage() {
       "Poemas Sinfónicos",
       "Compositores",
     ],
-    "Romántica": [
+    Romántica: [
       "Óperas",
       "Música de cámara",
       "Sinfonías",
@@ -51,7 +61,7 @@ export default function CrearMusicaPage() {
       "Poemas Sinfónicos",
       "Compositores",
     ],
-    "Nacionalista": [
+    Nacionalista: [
       "Óperas",
       "Música de cámara",
       "Sinfonías",
@@ -216,7 +226,7 @@ export default function CrearMusicaPage() {
         !Number.isInteger(year)
       ) {
         errors.push(
-          `El año de grabación debe ser un número entero entre 1850 y ${currentYear}`
+          `El año de grabación debe ser un número entero entre 1850 y ${currentYear}`,
         );
       }
     }
@@ -285,7 +295,7 @@ export default function CrearMusicaPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
 
@@ -550,9 +560,9 @@ export default function CrearMusicaPage() {
                     : "No hay opciones disponibles"}
                 </option>
                 {tipo_clasica[formData.tipoMusica]?.map((sub) => (
-                    <option key={sub} value={sub}>
-                      {sub}
-                    </option>
+                  <option key={sub} value={sub}>
+                    {sub}
+                  </option>
                 ))}
               </select>
             </div>

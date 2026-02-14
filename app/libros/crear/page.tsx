@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
@@ -9,6 +9,16 @@ export default function CrearLibroPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return <div>Cargando...</div>; // mientras se redirige
+  }
 
   const subcategoria: { [key: string]: string[] } = {
     Arquitectura: [
@@ -339,7 +349,7 @@ export default function CrearLibroPage() {
       !Number.isInteger(yearPub)
     ) {
       errors.push(
-        `El año de publicación debe ser un número entero entre 1000 y ${currentYear}`
+        `El año de publicación debe ser un número entero entre 1000 y ${currentYear}`,
       );
     }
 
@@ -407,7 +417,7 @@ export default function CrearLibroPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
 
