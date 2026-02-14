@@ -25,12 +25,12 @@ export default function LibrosPage() {
   const booksPerPage = 10;
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
-  // 👇 DEBUG: Ver cuándo cambia currentPage
-  console.log("🔵 Render - currentPage:", currentPage);
+  // DEBUG: Ver cuándo cambia currentPage
+  console.log(" Render - currentPage:", currentPage);
 
   useEffect(() => {
-    // 👇 DEBUG: Ver cuándo se ejecuta el useEffect
-    console.log("🟢 useEffect ejecutado - currentPage:", currentPage, "searchTerm:", searchTerm);
+    // DEBUG: Ver cuándo se ejecuta el useEffect
+    console.log(" useEffect ejecutado - currentPage:", currentPage, "searchTerm:", searchTerm);
     
     const fetchBooks = async () => {
       setLoading(true);
@@ -45,7 +45,7 @@ export default function LibrosPage() {
         }
 
         const url = `${API_BASE}/libros/?${params}`;
-        console.log("🌐 Fetching:", url);
+        console.log(" Fetching:", url);
 
         const res = await fetch(url);
         
@@ -55,13 +55,13 @@ export default function LibrosPage() {
         
         const data: PaginatedResponse = await res.json();
         
-        console.log("📦 Data recibida:", data);
+        console.log(" Data recibida:", data);
 
         setBooks(data.results);
         setTotalPages(data.total_pages);
         setTotalItems(data.total);
       } catch (error) {
-        console.error("❌ Error al cargar los libros:", error);
+        console.error(" Error al cargar los libros:", error);
         setBooks([]);
         setTotalPages(0);
         setTotalItems(0);
@@ -113,25 +113,25 @@ export default function LibrosPage() {
   };
 
   const handleSearch = (term: string) => {
-    console.log("🔍 handleSearch llamado con:", term);
+    console.log(" handleSearch llamado con:", term);
     setSearchTerm(term);
     setCurrentPage(1);
   };
 
   const goToPreviousPage = () => {
-    console.log("⬅️ goToPreviousPage - currentPage antes:", currentPage);
+    console.log(" goToPreviousPage - currentPage antes:", currentPage);
     setCurrentPage((prev) => {
       const newPage = Math.max(prev - 1, 1);
-      console.log("⬅️ Nueva página:", newPage);
+      console.log(" Nueva página:", newPage);
       return newPage;
     });
   };
 
   const goToNextPage = () => {
-    console.log("➡️ goToNextPage - currentPage antes:", currentPage);
+    console.log(" goToNextPage - currentPage antes:", currentPage);
     setCurrentPage((prev) => {
       const newPage = Math.min(prev + 1, totalPages);
-      console.log("➡️ Nueva página:", newPage);
+      console.log(" Nueva página:", newPage);
       return newPage;
     });
   };
@@ -152,7 +152,7 @@ export default function LibrosPage() {
         <button
           key={1}
           onClick={() => {
-            console.log("🔢 Click en página 1");
+            console.log("Click en página 1");
             setCurrentPage(1);
           }}
           className="px-3 py-2 rounded-md text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -175,7 +175,7 @@ export default function LibrosPage() {
         <button
           key={i}
           onClick={() => {
-            console.log(`🔢 Click en página ${pageNum}`);
+            console.log(`Click en página ${pageNum}`);
             setCurrentPage(pageNum);
           }}
           className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -201,7 +201,7 @@ export default function LibrosPage() {
         <button
           key={totalPages}
           onClick={() => {
-            console.log(`🔢 Click en última página ${totalPages}`);
+            console.log(`Click en última página ${totalPages}`);
             setCurrentPage(totalPages);
           }}
           className="px-3 py-2 rounded-md text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
