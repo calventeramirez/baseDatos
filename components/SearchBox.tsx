@@ -19,7 +19,7 @@ export default function SearchBox({
     }, 300); // Debounce de 300ms
 
     return () => clearTimeout(delayedSearch);
-  }, [searchTerm, onSearch]);
+  }, [searchTerm]);
 
   const handleClear = () => {
     setSearchTerm("");
